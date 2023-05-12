@@ -17,6 +17,6 @@
 | label | Individual input label | \<label for="range">Range: \</label> | 
 | output | Output of input | \<output for="range">0\</output> |
 | meter | Display value with a known range | \<meter min="0" max="100" value="50">\</meter> |
-  
- 
-  
+
+## CSS ##
+
