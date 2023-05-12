@@ -120,13 +120,14 @@ form {
 
 .githubLogo:hover {
     filter: alpha(opacity=80);
-    opacity: .50;
+    opacity: .80;
 }
 
 button:hover {
     filter: alpha(opacity=80);
-    opacity: .50;
+    opacity: .80;
 }
+
 
 .nowBody {
     color: white;
@@ -231,4 +232,27 @@ nav {
     color: white;
     padding: 1rem;
     font-size: 2rem;
+}
+
+.mapBody {
+    background-image: url(/images/map.png);
+    height: 1000px;
+}
+
+.mapDiv {
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: flex-end;
+    height: 1000px;
+}
+
+.pinpoint {
+    width: 4rem;
+    height: 4rem;
+    padding: 2rem;
+}
+
+.pinpoint:hover {
+    filter: alpha(opacity=80);
+    opacity: .80;
 }
