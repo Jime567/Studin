@@ -260,3 +260,49 @@ nav {
     filter: alpha(opacity=80);
     opacity: .80;
 }
+.futureBody {
+    background-color: black;
+}
+.futureContent {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    background-color: black;
+}
+
+.futureEvent {
+    max-width: 600px;
+    width: 90%;
+    background: linear-gradient(to bottom, #002d5f 50%, #3381c6 50%);
+    margin: 1.5rem;
+    margin-bottom: 0;
+    border-radius: 20px;
+    color: white;
+}
+.nameAndTime {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.futureTime {
+    margin: 0;
+    font-size: 1.4rem;
+    font-weight: bold;
+}
+.futureLocation {
+    margin: 0;
+}
+.headerLevel {
+    height: 50%;
+    padding: .8rem;
+}
+.bottomLevel {
+    height: 50%;
+    padding: .8rem;
+}
+.noMore {
+    color: #ff5757;
+    padding: 0;
+    margin: .5rem;
+}
