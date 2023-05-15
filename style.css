@@ -307,3 +307,5 @@ nav {
     padding: 0;
     margin: .5rem;
 }
+
+#loadOverlay{display: none;}
