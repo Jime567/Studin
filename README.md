@@ -13,3 +13,20 @@ StuDin solves the problem by providing on-campus meals for free to all students.
 * Authentication: The webapp will require user accounts to access the content and to report food locations
 * Database Data: The locations, descriptions, and times for food events will be stored in a database.
 * Websocket Data: Live reporting of events will be received and sent by the server
+
+## HTML Deliverable ##
+* **HTML Pages:** Pages representing the four main screens created: Login, Now, Map, and Future
+* **Links:** Links added to connect all of the pages together in a navigation flow
+* **Text:** Text placed as placeholders for future data
+* **Images:** Logo Image added and an image as placeholder for the map
+* **Login:** Input form created for login
+* **Database:** A database will hold entries that appear on the card elements 
+* **Websocket:** The 'Now' page will hold realtime entries
+
+## CSS Deliverable ## 
+* **Header, Footer, and Main Content Body**
+* **Navigation Elements:** Navigation elements are styled after the pattern of the theme
+* **Responsive to Window Resizing:** The interface will work on all screen sizes and dynamically change to fit nicely
+* **Applicaiton Elements:** The colors work well together and contrast is used appropriately
+* **Applicaiton Text Cotnent:** Uniform font used throughout
+* **Applicaiton Images:** Images sized and placed appropriately
