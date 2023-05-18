@@ -4,6 +4,7 @@
     <head>
         <div class="head">
             <link rel="stylesheet" href="/style.css"/>
+            <script src="/main.js" type="module"></script>
             <meta charset="UTF-8">
             <meta http-equiv="X-UA-Compatible" content="IE=edge">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -18,7 +19,7 @@
        <!-- Stop The HTML from Appearing Before CSS Loads-->
        <div id="loadOverlay" style="background-color:#333; position:absolute; top:0px; left:0px; width:100%; height:100%; z-index:2000;"> 
         </div>
-        
+
     <div class="navContainer">
         <nav>
             <a href="/now.html"><button class="navElement">Now</button></a>
@@ -26,53 +27,116 @@
             <a href="/future.html"><button class="navElement">Future</button></a>
         </nav>
     </div>
-    <div class="entryContainer">
-        <span class="topLevel">
-            <div class="nameLocation">
-                <p class="cardTitle, cardName" >ACME Club</p>
-                <p class="cardTitle">2264 TMCB</p>
-            </div>
-            <p class="time">7:30pm</p>
-        </span>
-        <p class="description">Club meeting has pizza and drinks</p>
-        <span class="outTime">
-            <button class="outButton">Out</button>
-            <p>13 min left</p>
-        </span>
-    </div>
+
+    <!-- Pop Up Stuff -->
+    <!-- The form -->
+    <div class="form-popup" id="createEventPopUp">
+    <form class="form-container">
+        <h2>Create Event</h2>
+
+        <p><b>Event Name</b></p>
+        <input type="text" placeholder="What is the event?" name="email" >
+
+        <p><b>Description</b></p>
+        <textarea id="newCardNameInput" style="resize: none;" rows="4" type="text" wrap="soft" placeholder="Write a short description of the event and mention any requirements"></textarea>
  
-    <div class="entryContainer">
-        <span class="topLevel">
-            <div class="nameLocation">
-                <p class="cardTitle, cardName" >Career Fair</p>
-                <p class="cardTitle">WCC 124</p>
-            </div>
-            <p class="time">7:45pm</p>
-        </span>
+            <span class="selectBuilding">
+                <p class="locationInput">Building:</p>
+                <select name="buildings" id="cars">
+                <option value="BNSN">BNSN Benson (Ezra Taft) Building</option>
+                <option value="BRMB">BRMB Brimhall (George H.) Building</option>
+                <option value="CONF">CONF BYU Conference Center </option>
+                <option value="BELL">BELL Centennial Carillon Tower </option>
+                <option value="CMB">CMB Chemicals Management Building </option>
+                <option value="HRCB">HRCB Clark (Herald R.) Building </option>
+                <option value="JRCB">JRCB Clark (J. Reuben) Building  </option>
+                <option value="CB">CB Clyde (W.W.) Engineering Building </option>
+                <option value="CTB">CTB Crabtree (Roland A.) Technology Building </option>
+                <option value="ELLB">ELLB Ellsworth (Leo B.) Building </option>
+                <option value="EB">EB Engineering Building  </option>
+                <option value="EPL">EPL Engineering Projects Lab </option>
+                <option value="ERL">ERL Engineering Research Lab  </option>
+                <option value="ESC">ESC Eyring (Carl F.) Science Center </option>
+                <option value="FPH">FPH Former Presidents' Home </option>
+                <option value="HGB">HGB Testing Center </option>
+                <option value="HCEB">HCEB Harman (Caroline Hemenway) Building </option>
+                <option value="JNEH">JNEH Johnson (Doran) House East </option>
+                <option value="KMBL">KMBL Kimball (Spencer W.) Tower </option>
+                <option value="JKB">JKB Knight (Jesse) Building</option>
+                <option value="HBLL">HBLL Lee (Harold B.) Library</option>
+                <option value="LSB">LSB Life Sciences Building</option>
+                <option value="LSGH">Life Sciences Greenhouses LSGH</option>
+                <option value="MSRB">MSRB Maeser (Karl G.) Building</option>
+                <option value="MSRB">MSRB Maeser (Karl G.) Building</option>
+                <option value="MB">Music Building</option>
+                <option value="MCKB">MCKB McKay (David O.) Building</option>
+                <option value="NICB">NICB Nicholes (Joseph K.) Building (Chemical Stores) </option>
+                <option value="RMB">RMB Risk Management Building </option>
+                <option value="JFSB">JFSB Smith (Joseph F.) Building</option>
+                <option value="JSB">JSB Smith (Joseph) Building</option>
+                <option value="SNLB">SNLB Snell (William H.) Building</option>
+                <option value="TMCB">TMCB Talmage (James E.) Math Sciences/Computer Building</option>
+                <option value="TNRB">TNRB Tanner (N. Eldon) Building</option>
+                <option value="TLRB">TLRB Taylor (John) Building (Comprehensive Clinic)</option>
+                <option value="UPC">UPC University Parkway Center</option>
+                <option value="WVB">West View Building  WVB</option>
+                <option value="ROTC">ROTC Wells (Daniel H.) Building (ROTC)</option>
+                <option value="ASB">ASB Smoot (Abraham O.) Administration Building</option>
+                <option value="RB">RB Richards (Stephen L.) Building</option>
+                <option value="SFH">SFH Smith (George Albert) Fieldhouse</option>
+                </select>
 
-        <p class="description">Booths with refreshments, target Qualtrics. Booths with refreshments, target Qualtrics. Booths with refreshments, target Qualtrics.</p>
+                <p class="locationInput">Room #:</p>
+                <input id="roomInput" type="text" class="roomInput" placeholder="#" name="email" >
+            </span>
+
         
-        <span class="outTime">
-            <button class="outButton">Out</button>
-            <p>13 min left</p>
-        </span>
-    </div>
-   
-    <div class="entryContainer">
-        <span class="topLevel">
-            <div class="nameLocation">
-                <p class="cardTitle, cardName" >Career Fair</p>
-                <p class="cardTitle">2264 TMCB</p>
-            </div>
-            <p class="time">7:30pm</p>
-        </span>
-        <p class="description">Club meeting has pizza and drinks</p>
-        <span class="outTime">
-            <button class="outButton">Out</button>
-            <p>13 min left</p>
-        </span>
-    </div>
 
+
+        <span class="popUpButtons">
+            <button type="submit" class="btn">Add</button>
+            <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+        </span>
+    </form>
+    </div> 
+
+    <div class="content">
+        <div class="entryContainer">
+            <span class="topLevel">
+                <div class="nameLocation">
+                    <p class="cardTitle, cardName" >ACME Club</p>
+                    <p class="cardTitle">2264 TMCB</p>
+                </div>
+                <p class="time">7:30pm</p>
+            </span>
+            <p class="description">Club meeting has pizza and drinks</p>
+            <span class="outTime">
+                <button class="outButton">Out</button>
+                <p>13 min left</p>
+            </span>            
+        </div>
+
+        <div class="entryContainer">
+            <span class="topLevel">
+                <div class="nameLocation">
+                    <p class="cardTitle, cardName" >ACME Club</p>
+                    <p class="cardTitle">2264 TMCB</p>
+                </div>
+                <p class="time">7:30pm</p>
+            </span>
+            <p class="description">Club meeting has pizza and drinks</p>
+            <span class="outTime">
+                <button class="outButton">Out</button>
+                <p>13 min left</p>
+            </span>            
+        </div>
+
+        <div class="popUpButton">
+                <img src="/images/plus.png" id="openForm" class="openForm">
+            </div>
+        
+    </div>
+    
     <footer>
         <a href="https://github.com/Jime567/startup"><img alt="My Github" class="githubLogo" src="/images/githubLogo.png"/></a>
     </footer>

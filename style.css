@@ -312,4 +312,144 @@ nav {
     height: 100%; 
     width: 100%; 
 }
+
+/* Pop Up Class Settings */
+
+/* Button used to open the contact form - fixed at the bottom of the page */
+.content {
+    height: 100%;
+    display: flex;
+    flex-grow: 1;
+    flex-direction: column;
+}
+.popUpButton {
+    display: flex;
+    flex-direction: row-reverse;
+    flex-grow: 1;
+}
+.openForm:hover {
+    filter: alpha(opacity=80);
+    opacity: .80;
+}
+
+.openForm {
+    width: 4rem;
+    min-width: 48px;
+    min-height: 48px;
+    align-self: flex-end;
+    bottom: 10px;
+    right: 10px;
+    z-index: 1;
+
+}
+
+/* The popup form - hidden by default */
+.form-popup {
+    display: none;
+    background: rgba(89, 92, 175, 0.5);    position: fixed;
+    align-self: center; 
+    top: 0;
+    left: 0;
+    z-index: 9;
+    height: 100%;
+    width: 100%;
+    justify-content: center;
+    color: white;
+}
+
+/* Add styles to the form container */
+.form-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 700px;
+    width: 95%;
+    align-self: center;
+    padding: 2rem ;
+    background-color: #002d5f;
+    border-radius: 20px;
+    border-color: white;
+    border-width: .5rem;
+    border-style: solid;
+}
+
+
+.form-container p {
+    align-self: flex-start;
+    margin: 1 rem;
+}
+
+.form-container h2 {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    width: 100%;
+}
+
+.form-container input {
+    width: 100%;
+    border: 0px;
+    padding: 1rem;
+}
+
+.form-container textarea {
+    width: 100%;
+    border: 0px;
+    border-radius: 20px;
+    padding: 1rem;
+}
+
+.popUpButtons {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    margin: 1rem;
+}
+
+.selectBuilding {
+    margin: 1rem;
+    font-weight: bold;
+    align-self: flex-start;
+}
+
+.form-container button {
+    width: 100%;
+    padding: 1rem;
+    border: 0;
+    border-radius: 15px;
+    background-color: #3381c6;
+    margin: .9rem;
+}
+
+.selectBuilding {
+    width: 100%;
+    display: flex;
+    justify-content: left;
+    flex-direction: row;
+    margin: 1rem;
+    
+}
+.selectBuilding select {
+    align-self: center;
+    width: 30%;
+    background-color: white;
+    border: 0px;
+    padding: 1rem;
+    border-radius: 20px;
+    margin-right: 30px;
+}
+
+.selectBuilding input {
+    width: 10%;
+    
+ } 
+
+ .locationInput {
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-right: 5px;
+
+ }
+
+
 #loadOverlay{display: none;}
