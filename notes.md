@@ -19,4 +19,18 @@
 | meter | Display value with a known range | \<meter min="0" max="100" value="50">\</meter> |
 
 ## CSS ##
+Nothing Important
 
+## Javascript ##
+### File 1 ###
+```
+export function hello() {
+ console.log('hello');
+}
+```
+
+### File 2 ###
+```
+import { hello } from './hellos.js';
+hello();
+```
