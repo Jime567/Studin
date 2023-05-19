@@ -4,7 +4,7 @@
     <head>
         <div class="head">
             <link rel="stylesheet" href="/style.css"/>
-            <script src="/main.js" type="module"></script>
+            <script src="/now.js" type="module"></script>
             <meta charset="UTF-8">
             <meta http-equiv="X-UA-Compatible" content="IE=edge">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -38,9 +38,11 @@
         <input type="text" placeholder="What is the event?" name="email" >
 
         <p><b>Description</b></p>
-        <textarea id="newCardNameInput" style="resize: none;" rows="4" type="text" wrap="soft" placeholder="Write a short description of the event and mention any requirements"></textarea>
+        <textarea id="newCardNameInput" style="resize: none;"
+         rows="3" type="text" wrap="soft" 
+         placeholder="Write a short description of the event and mention any requirements"></textarea>
  
-            <span class="selectBuilding">
+            <div class="selectBuilding">
                 <p class="locationInput">Building:</p>
                 <select name="buildings" id="cars">
                 <option value="BNSN">BNSN Benson (Ezra Taft) Building</option>
@@ -54,13 +56,12 @@
                 <option value="CTB">CTB Crabtree (Roland A.) Technology Building </option>
                 <option value="ELLB">ELLB Ellsworth (Leo B.) Building </option>
                 <option value="EB">EB Engineering Building  </option>
-                <option value="EPL">EPL Engineering Projects Lab </option>
+                <option value="ERL">ERL Engineering Research Lab </option>
                 <option value="ERL">ERL Engineering Research Lab  </option>
                 <option value="ESC">ESC Eyring (Carl F.) Science Center </option>
                 <option value="FPH">FPH Former Presidents' Home </option>
                 <option value="HGB">HGB Testing Center </option>
                 <option value="HCEB">HCEB Harman (Caroline Hemenway) Building </option>
-                <option value="JNEH">JNEH Johnson (Doran) House East </option>
                 <option value="KMBL">KMBL Kimball (Spencer W.) Tower </option>
                 <option value="JKB">JKB Knight (Jesse) Building</option>
                 <option value="HBLL">HBLL Lee (Harold B.) Library</option>
@@ -85,22 +86,30 @@
                 <option value="RB">RB Richards (Stephen L.) Building</option>
                 <option value="SFH">SFH Smith (George Albert) Fieldhouse</option>
                 </select>
-
-                <p class="locationInput">Room #:</p>
-                <input id="roomInput" type="text" class="roomInput" placeholder="#" name="email" >
-            </span>
+            </div>
+            <div class="roomTime">
+                <span>
+                    <p class="locationInput">Room #:</p>
+                    <input id="roomInput" type="text" class="roomInput" placeholder="#" name="email" >
+                </span>
+                    <span>
+                        <p class="locationInput">Time:</p>
+                        <input id="roomInput" type="time" class="roomInput" placeholder="#" name="email" >
+                    </span>
+            </div>
 
         
 
 
         <span class="popUpButtons">
             <button type="submit" class="btn">Add</button>
-            <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+            <button type="button" id="popCancel" class="popCancel">Close</button>
         </span>
     </form>
     </div> 
 
     <div class="content">
+        
         <div class="entryContainer">
             <span class="topLevel">
                 <div class="nameLocation">
@@ -130,10 +139,12 @@
                 <p>13 min left</p>
             </span>            
         </div>
+     
 
-        <div class="popUpButton">
-                <img src="/images/plus.png" id="openForm" class="openForm">
+        
             </div>
+            <div class="popUpButton">
+                <img src="/images/plus.png" id="openForm" class="openForm">
         
     </div>
     
