@@ -12,32 +12,24 @@ popClose.addEventListener("click", function () {
 
 //events and list of events variables
 let events = JSON.parse(localStorage.getItem("events"));
-console.log(events);
 if (events === null) {
     events = [];
 }
-else {
-    let i;
-    for (i in events) {
-        createEventCard(JSON.parse(localStorage.getItem(events[i])));
-    }
-}
 
 //make an event
-function createEvent (name, description, location, room, time) {
+function createEvent (name, description, location, room) {
     const newEvent = {
         name : name,
         description : description,
         location : location,
-        room : room,
-        time: time
+        room : room
       }
       window.localStorage.setItem(name, JSON.stringify(newEvent));
       events.push(name);
       localStorage.setItem("events", JSON.stringify(events));
 }
 
-//make a card entry in the list of events
+
 function createEventCard (eventObject) {
     const entryContainer = document.createElement("div");
     entryContainer.className = "entryContainer";
@@ -55,7 +47,7 @@ function createEventCard (eventObject) {
     nameLocation.appendChild(locationName);
     const time = document.createElement("p");
     time.className = "time";
-    time.innerText = eventObject.time;
+    time.innerText = "9:45pm";
     topLevel.appendChild(nameLocation);
     topLevel.appendChild(time);
     const description = document.createElement("p");
@@ -80,6 +72,5 @@ function createEventCard (eventObject) {
 }
 
 //createEvent("Moikka", "Have fun moikkaing around", "BRMB", "2309A");
-// createEvent("Howdy doo", "Eating Pizza cuz were cool", "BRMB", "3209A", "3:45pm");
-// createEventCard(JSON.parse(window.localStorage.getItem("Howdy doo")));
-
+createEvent("Howdy doo", "Eating Pizza cuz were cool", "BRMB", "3209A");
+createEventCard(JSON.parse(window.localStorage.getItem("Howdy doo")));
