@@ -18,7 +18,21 @@ if (events === null) {
 else {
     let i;
     for (i of events) {
-        createEventCard(JSON.parse(localStorage.getItem(i)))
+        //see if it has started already
+        let time = JSON.parse(localStorage.getItem(i)).time;
+        let now = moment();
+        time = moment(now.get('year') + " " + (now.get('month') + 1) + " " + now.get('date') + " " + time);
+        if (now.diff(time) > 0 && now.diff(time, 'minutes') < 60) {
+            createEventCard(JSON.parse(localStorage.getItem(i)))      
+        }
+    }
+    for (i of events) {
+        let time = JSON.parse(localStorage.getItem(i)).time;
+        let now = moment();
+        time = moment(now.get('year') + " " + (now.get('month') + 1) + " " + now.get('date') + " " + time);
+        if (now.diff(time, 'minutes') > 60) {
+            deleteEvent(i);
+        }
     }
 }
 
@@ -70,13 +84,13 @@ function createEventCard (eventObject) {
     outButton.innerText = "Out";
     
     const timeLeft = document.createElement("p");
-    timeLeft.innerText = "17 min left";
-    //time magic
-    // const now = new Date();
-    // console.log("Now: " + now.getDate());
-    // const startTime = new Date(now.getFullYear() + " " + (now.getMonth() + 1 )  + " " + now.getDate() + " " + eventObject.time);
     
-    // console.log(startTime);
+    //time left magic
+    let now = moment();
+    let endTime = moment(now.get('year') + " " + (now.get('month') + 1) + " " + now.get('date') + " " +  eventObject.time)
+    endTime = endTime.add(1, 'hour');
+    timeLeft.innerText = endTime.fromNow(true) + " left";
+
     outTime.appendChild(outButton);
     outTime.appendChild(timeLeft);
     entryContainer.appendChild(topLevel);
@@ -88,43 +102,68 @@ function createEventCard (eventObject) {
 
     //make delete out button functionality
     outButton.addEventListener("click", function () {
-        const index = events.indexOf(eventObject.name);
+        deleteEvent(eventObject.name);
+    });
+    
+}
+
+function deleteEvent(name) {
+    const index = events.indexOf(name);
         events.splice(index, 1);
         localStorage.setItem("events", JSON.stringify(events));
-        window.localStorage.removeItem(eventObject.name);
+        window.localStorage.removeItem(name);
         const cards = document.querySelectorAll("#entryContainer");
         let c;
         for (c of cards) {
             c.remove();
         }
         generateCardList();
-    });
-    
 }
-
 
 const addEventButton = document.getElementById("addEventButton");
 addEventButton.addEventListener("click", function () {
     //event name
     const eventName = document.getElementById("eventNameInput").value;
-    document.getElementById("eventNameInput").value = "";
+    
     //description
     const desc = document.getElementById("descriptionInput").value;
-    document.getElementById("descriptionInput").value = "";
     //building
     const building = document.getElementById("buildingInput").value;
-    document.getElementById("buildingInput").value = "ASB";
     //room
     const room = document.getElementById("roomInput").value;
-    document.getElementById("roomInput").value = "";
     //time
     const time = document.getElementById("timeInput").value;
-    document.getElementById("timeInput").value = "";
-    //create the event
-    createEvent(eventName, desc, building, room, time);
-    createEventCard(JSON.parse(window.localStorage.getItem(eventName)));
-    //close the pop up window
-    document.getElementById("createEventPopUp").style.display = "none";  
+    
+    //check to see if it has started or is too old
+    let now = moment();
+    let tempTime = moment(now.get('year') + " " + (now.get('month') + 1) + " " + now.get('date') + " " + time);
+    console.log(now.diff(tempTime, 'minutes'));
+    if (now.diff(tempTime) > 0 && now.diff(tempTime, 'minutes') < 60) {
+        //create the event
+        createEvent(eventName, desc, building, room, time);
+        createEventCard(JSON.parse(localStorage.getItem(eventName)));
+        document.getElementById("createEventPopUp").style.display = "none";  
+        document.getElementById("eventNameInput").value = "";
+        document.getElementById("descriptionInput").value = "";
+        document.getElementById("buildingInput").value = "ASB";
+        document.getElementById("roomInput").value = "";
+        document.getElementById("timeInput").value = "";
+    }
+    else if (now.diff(tempTime) < 0 && now.diff(tempTime, 'minutes') < 60) {
+        //create the event
+        createEvent(eventName, desc, building, room, time);
+        document.getElementById("createEventPopUp").style.display = "none";  
+        document.getElementById("eventNameInput").value = "";
+        document.getElementById("descriptionInput").value = "";
+        document.getElementById("buildingInput").value = "ASB";
+        document.getElementById("roomInput").value = "";
+        document.getElementById("timeInput").value = "";
+    }
+    else if (now.diff(tempTime, 'minutes') > 60) {
+        alert("Event start is too long ago.");
+    }
+    //close the pop up window and clear fields
+    
 });
 
 function generateCardList() {
@@ -136,7 +175,22 @@ function generateCardList() {
     else {
         let i;
         for (i of events) {
-            createEventCard(JSON.parse(localStorage.getItem(i)))
+            //see if it has started already
+            let time = JSON.parse(localStorage.getItem(i)).time;
+            let now = moment();
+            time = moment(now.get('year') + " " + (now.get('month') + 1) + " " + now.get('date') + " " + time);
+            if (now.diff(time) > 0 && now.diff(time, 'minutes') < 60) {
+                createEventCard(JSON.parse(localStorage.getItem(i)))      
+            }
+        }
+        //delete old events
+        for (i of events) {
+            let time = JSON.parse(localStorage.getItem(i)).time;
+            let now = moment();
+            time = moment(now.get('year') + " " + (now.get('month') + 1) + " " + now.get('date') + " " + time);
+            if (now.diff(time, 'minutes') > 60) {
+                deleteEvent(i);
+            }
         }
     }
 }
