@@ -71,6 +71,12 @@ function createEventCard (eventObject) {
     
     const timeLeft = document.createElement("p");
     timeLeft.innerText = "17 min left";
+    //time magic
+    // const now = new Date();
+    // console.log("Now: " + now.getDate());
+    // const startTime = new Date(now.getFullYear() + " " + (now.getMonth() + 1 )  + " " + now.getDate() + " " + eventObject.time);
+    
+    // console.log(startTime);
     outTime.appendChild(outButton);
     outTime.appendChild(timeLeft);
     entryContainer.appendChild(topLevel);
