@@ -40,12 +40,14 @@ function createEvent (name, description, location, room, time) {
 function createEventCard (eventObject) {
     const entryContainer = document.createElement("div");
     entryContainer.className = "entryContainer";
+    entryContainer.id = "entryContainer";
     const topLevel = document.createElement("span");
     topLevel.className = "topLevel";
     const nameLocation = document.createElement("div"); 
     nameLocation.className = "nameLocation";
     const cardTitle = document.createElement("p");
     cardTitle.className = "cardTitle, cardName";
+    cardTitle.id = "cardTitle";
     cardTitle.innerText = eventObject.name;
     const locationName = document.createElement("p");
     locationName.className = "cardTitle";
@@ -64,7 +66,9 @@ function createEventCard (eventObject) {
     outTime.className = "outTime";
     const outButton = document.createElement("button");
     outButton.className = "outButton";
+    outButton.id = eventObject.name;
     outButton.innerText = "Out";
+    
     const timeLeft = document.createElement("p");
     timeLeft.innerText = "17 min left";
     outTime.appendChild(outButton);
@@ -75,6 +79,21 @@ function createEventCard (eventObject) {
 
     const content = document.querySelector(".content");
     content.appendChild(entryContainer);
+
+    //make delete out button functionality
+    outButton.addEventListener("click", function () {
+        const index = events.indexOf(eventObject.name);
+        events.splice(index, 1);
+        localStorage.setItem("events", JSON.stringify(events));
+        window.localStorage.removeItem(eventObject.name);
+        const cards = document.querySelectorAll("#entryContainer");
+        let c;
+        for (c of cards) {
+            c.remove();
+        }
+        generateCardList();
+    });
+    
 }
 
 
@@ -101,4 +120,18 @@ addEventButton.addEventListener("click", function () {
     //close the pop up window
     document.getElementById("createEventPopUp").style.display = "none";  
 });
+
+function generateCardList() {
+    //events and list of events variables
+    let events = JSON.parse(localStorage.getItem("events"));
+    if (events === null) {
+        events = [];
+    }
+    else {
+        let i;
+        for (i of events) {
+            createEventCard(JSON.parse(localStorage.getItem(i)))
+        }
+    }
+}
 
