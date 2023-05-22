@@ -70,7 +70,7 @@ function createEventCard (eventObject) {
     nameLocation.appendChild(locationName);
     const time = document.createElement("p");
     time.className = "time";
-    time.innerText = eventObject.time;
+    
     topLevel.appendChild(nameLocation);
     topLevel.appendChild(time);
     const description = document.createElement("p");
@@ -87,9 +87,11 @@ function createEventCard (eventObject) {
     
     //time left magic
     let now = moment();
-    let endTime = moment(now.get('year') + " " + (now.get('month') + 1) + " " + now.get('date') + " " +  eventObject.time)
+    let startTime = moment(now.get('year') + " " + (now.get('month') + 1) + " " + now.get('date') + " " +  eventObject.time);
+    let endTime = moment(now.get('year') + " " + (now.get('month') + 1) + " " + now.get('date') + " " +  eventObject.time);
     endTime = endTime.add(1, 'hour');
     timeLeft.innerText = endTime.fromNow(true) + " left";
+    time.innerText = moment(startTime).format('hh:mm a');
 
     outTime.appendChild(outButton);
     outTime.appendChild(timeLeft);
@@ -145,7 +147,7 @@ addEventButton.addEventListener("click", function () {
         document.getElementById("createEventPopUp").style.display = "none";  
         document.getElementById("eventNameInput").value = "";
         document.getElementById("descriptionInput").value = "";
-        document.getElementById("buildingInput").value = "ASB";
+        document.getElementById("buildingInput").value = "BNSN";
         document.getElementById("roomInput").value = "";
         document.getElementById("timeInput").value = "";
     }
@@ -195,3 +197,15 @@ function generateCardList() {
     }
 }
 
+
+
+function formatAMPM(date) {
+    var hours = date.getHours();
+    var minutes = date.getMinutes();
+    var ampm = hours >= 12 ? 'pm' : 'am';
+    hours = hours % 12;
+    hours = hours ? hours : 12; // the hour '0' should be '12'
+    minutes = minutes < 10 ? '0'+minutes : minutes;
+    var strTime = hours + ':' + minutes + ' ' + ampm;
+    return strTime;
+  }
