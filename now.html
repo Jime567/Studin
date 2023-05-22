@@ -4,7 +4,7 @@
     <head>
         <div class="head">
             <link rel="stylesheet" href="/style.css"/>
-            <link rel="icon" href="/images/favicon.ico">
+            <link rel="icon" href="/images/favicon.png">
 
             <script src="/now.js" type="module"></script>
             <meta charset="UTF-8">
@@ -37,16 +37,16 @@
         <h2>Create Event</h2>
 
         <p><b>Event Name</b></p>
-        <input type="text" placeholder="What is the event?" name="email" >
+        <input type="text" id="eventNameInput" placeholder="What is the event?" name="email" >
 
         <p><b>Description</b></p>
-        <textarea id="newCardNameInput" style="resize: none;"
+        <textarea id="descriptionInput" style="resize: none;"
          rows="3" type="text" wrap="soft" 
          placeholder="Write a short description of the event and mention any requirements"></textarea>
  
             <div class="selectBuilding">
                 <p class="locationInput">Building:</p>
-                <select name="buildings" id="cars">
+                <select name="buildings" id="buildingInput">
                 <option value="BNSN">BNSN Benson (Ezra Taft) Building</option>
                 <option value="BRMB">BRMB Brimhall (George H.) Building</option>
                 <option value="CONF">CONF BYU Conference Center </option>
@@ -96,7 +96,7 @@
                 </span>
                     <span>
                         <p class="locationInput">Time:</p>
-                        <input id="roomInput" type="time" class="roomInput" placeholder="#" name="email" >
+                        <input id="timeInput" type="time" class="roomInput" placeholder="#" name="email" >
                     </span>
             </div>
 
@@ -104,7 +104,7 @@
 
 
         <span class="popUpButtons">
-            <button type="submit" class="btn">Add</button>
+            <button id="addEventButton" type="button">Add</button>
             <button type="button" id="popCancel" class="popCancel">Close</button>
         </span>
     </form>
