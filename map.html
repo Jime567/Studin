@@ -4,8 +4,8 @@
         <div class="head">
             <link rel="stylesheet" href="/style.css"/>
             <script src="/main.js" type="module"></script>
-            <script src="/map.js" type="module"></script>
             <script src="/moment.min.js" ></script>
+            <script src="/map.js" type="module"></script>
 
             <link rel="icon" href="/images/favicon.png">
 
@@ -45,6 +45,8 @@
         for(k in g)e.set(k.replace(/[A-Z]/g,t=>"_"+t[0].toLowerCase()),g[k]);e.set("callback",c+".maps."+q);a.src=`https://maps.${c}apis.com/maps/api/js?`+e;d[q]=f;a.onerror=()=>h=n(Error(p+" could not load."));a.nonce=m.querySelector("script[nonce]")?.nonce||"";m.head.append(a)}));d[l]?console.warn(p+" only loads once. Ignoring:",g):d[l]=(f,...n)=>r.add(f)&&u().then(()=>d[l](f,...n))})
         ({key: "AIzaSyCYOZSHSMv1lZGUfyl0KQF0etfujxL7Ls8", v: "beta"});</script>
         <!--AIzaSyCYOZSHSMv1lZGUfyl0KQF0etfujxL7Ls8-->
+
+        
 </body>
 <footer>
     <a href="https://github.com/Jime567/startup"><img alt="My Github" class="githubLogo" src="/images/githubLogo.png"/></a>

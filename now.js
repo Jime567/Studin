@@ -51,7 +51,7 @@ function createEvent (name, description, location, room, time) {
 }
 
 
-function createEventCard (eventObject) {
+function createEventCard () {
     const entryContainer = document.createElement("div");
     entryContainer.className = "entryContainer";
     entryContainer.id = "entryContainer";
