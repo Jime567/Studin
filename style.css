@@ -473,5 +473,8 @@ nav {
     font-size: bold;
  }
 
+.mapTitles {
+    color: black;
+}
 
 #loadOverlay{display: none;}
