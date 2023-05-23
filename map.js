@@ -146,6 +146,9 @@ function getCoordinates(place) {
     case "MB":
       return { lat: 40.248920780779365, lng: -111.64402887651475};
 
+    case "MSRB":
+      return {lat: 40.245375765312076, lng: -111.65350044137006};
+
     case "MCKB":
       return { lat: 40.24722118566496, lng: -111.65183467124847 };
 
