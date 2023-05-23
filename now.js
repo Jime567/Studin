@@ -147,7 +147,7 @@ addEventButton.addEventListener("click", function () {
         document.getElementById("createEventPopUp").style.display = "none";  
         document.getElementById("eventNameInput").value = "";
         document.getElementById("descriptionInput").value = "";
-        document.getElementById("buildingInput").value = "BNSN";
+        document.getElementById("buildingInput").value = "ASB";
         document.getElementById("roomInput").value = "";
         document.getElementById("timeInput").value = "";
     }
@@ -209,3 +209,4 @@ function formatAMPM(date) {
     var strTime = hours + ':' + minutes + ' ' + ampm;
     return strTime;
   }
+

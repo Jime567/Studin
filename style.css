@@ -187,7 +187,7 @@ button:hover {
 .description {
     padding-right: 1rem;
     padding-left: 1rem;
-    width: 100%;
+    width: 95%;
     margin: 0rem;
     font-size: 1rem;
 }
@@ -425,6 +425,8 @@ nav {
     border-radius: 15px;
     background-color: #3381c6;
     margin: .9rem;
+    color: white;
+    font-size: bold;
 }
 
 .selectBuilding {
@@ -467,6 +469,8 @@ nav {
 
  .form-container .popCancel {
     background-color: #ff5757;
+    color: white;
+    font-size: bold;
  }
 
 
