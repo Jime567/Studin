@@ -51,7 +51,7 @@ function createEvent (name, description, location, room, time) {
 }
 
 
-function createEventCard () {
+function createEventCard (eventObject) {
     const entryContainer = document.createElement("div");
     entryContainer.className = "entryContainer";
     entryContainer.id = "entryContainer";
@@ -135,12 +135,10 @@ addEventButton.addEventListener("click", function () {
     const room = document.getElementById("roomInput").value;
     //time
     const time = document.getElementById("timeInput").value;
-    
     //check to see if it has started or is too old
     let now = moment();
     let tempTime = moment(now.get('year') + " " + (now.get('month') + 1) + " " + now.get('date') + " " + time);
-    console.log(now.diff(tempTime, 'minutes'));
-    if (now.diff(tempTime) > 0 && now.diff(tempTime, 'minutes') < 60) {
+    if (now.diff(tempTime) > 0 && now.diff(tempTime, 'minutes') < 60 && eventName.length != 0) {
         //create the event
         createEvent(eventName, desc, building, room, time);
         createEventCard(JSON.parse(localStorage.getItem(eventName)));
@@ -151,7 +149,7 @@ addEventButton.addEventListener("click", function () {
         document.getElementById("roomInput").value = "";
         document.getElementById("timeInput").value = "";
     }
-    else if (now.diff(tempTime) < 0 && now.diff(tempTime, 'minutes') < 60) {
+    else if (now.diff(tempTime) < 0 && now.diff(tempTime, 'minutes') < 60 && eventName.length != 0) {
         //create the event
         createEvent(eventName, desc, building, room, time);
         document.getElementById("createEventPopUp").style.display = "none";  
@@ -161,8 +159,11 @@ addEventButton.addEventListener("click", function () {
         document.getElementById("roomInput").value = "";
         document.getElementById("timeInput").value = "";
     }
+    else if (eventName.length === 0) {
+        alert("Event must have name")
+    }
     else if (now.diff(tempTime, 'minutes') > 60) {
-        alert("Event start is too long ago.");
+        alert("Time cannot be longer than 1 hour ago");
     }
     //close the pop up window and clear fields
     
