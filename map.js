@@ -10,14 +10,42 @@ async function initMap() {
   const { Map } = await google.maps.importLibrary("maps");
   const { AdvancedMarkerElement } = await google.maps.importLibrary("marker");
 
+  //styles
+  const styles = {
+    default: [
+      {
+        featureType: "poi.business",
+        stylers: [{ visibility: "off" }],
+      },
+      {
+        featureType: "transit",
+        elementType: "labels.icon",
+        stylers: [{ visibility: "off" }],
+      },
+      {
+        featureType: "road",
+        elementType: "geometry",
+        stylers: [{ color: "#002d5f" }],
+      },
+      {
+        featureType: "POI.school",
+        elementType: "geometry",
+        stylers: [{ color: "#3381c6" }],
+      },
+  
+    ],
+  };
+
   // The map, centered on Library
   map = new Map(document.getElementById("map"), {
-    zoom: 18,
+    zoom: 16,
     center: position,
-    mapId: "DEMO_MAP_ID",
+    styles: styles["default"],
+    disableDefaultUI: true,
+    // mapId: "DEMO_MAP_ID",
   });
 
- 
+
   //Generate the markers
   let events = JSON.parse(localStorage.getItem("events"));
   if (events === null) {
@@ -29,11 +57,18 @@ async function initMap() {
     for ( i of events) {
     let eventObject = JSON.parse(localStorage.getItem(i));
     let pos = getCoordinates(eventObject.location);
+    let currOrNot = newOrOld(eventObject.time);
+    let hamburger = "/images/hamburgerNot.png";
+    if (currOrNot) {
+      hamburger = "/images/hamburger.png";
+    }
+    
+
     const marker = new google.maps.Marker({
       position: pos,
       map,
       title: eventObject.name,
-      icon: "/images/hamburger.png"
+      icon: hamburger
     });
     //get time in 12hr format
     let now = moment();
@@ -55,7 +90,19 @@ async function initMap() {
   }
 
 
+  function newOrOld(time) {
+    let now = moment();
+    let tempTime = moment(now.get('year') + " " + (now.get('month') + 1) + " " + now.get('date') + " " + time);
+    if (now.diff(tempTime) > 0) {
+      return true;
+    }
+    else {
+      return false;
+    }
+  }
 
+  
+  
 
 
 //   // The marker
