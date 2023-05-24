@@ -30,7 +30,7 @@ else {
         let time = JSON.parse(localStorage.getItem(i)).time;
         let now = moment();
         time = moment(now.get('year') + " " + (now.get('month') + 1) + " " + now.get('date') + " " + time);
-        if (now.diff(time, 'minutes') > 60) {
+        if (now.diff(time, 'minutes') >= 60) {
             deleteEvent(i);
         }
     }
@@ -91,7 +91,7 @@ function createEventCard (eventObject) {
     let endTime = moment(now.get('year') + " " + (now.get('month') + 1) + " " + now.get('date') + " " +  eventObject.time);
     endTime = endTime.add(1, 'hour');
     timeLeft.innerText = endTime.fromNow(true) + " left";
-    time.innerText = moment(startTime).format('hh:mm a');
+    time.innerText = moment(startTime).format('hh:mma');
 
     outTime.appendChild(outButton);
     outTime.appendChild(timeLeft);
@@ -174,6 +174,7 @@ function generateCardList() {
     let events = JSON.parse(localStorage.getItem("events"));
     if (events === null) {
         events = [];
+        console.log("No Events");
     }
     else {
         let i;
@@ -191,7 +192,7 @@ function generateCardList() {
             let time = JSON.parse(localStorage.getItem(i)).time;
             let now = moment();
             time = moment(now.get('year') + " " + (now.get('month') + 1) + " " + now.get('date') + " " + time);
-            if (now.diff(time, 'minutes') > 60) {
+            if (now.diff(time, 'minutes') >= 60) {
                 deleteEvent(i);
             }
         }
@@ -199,15 +200,65 @@ function generateCardList() {
 }
 
 
+function generateSampleCards() {
+    let card1Name = "ACME Club";
+    deleteEvent(card1Name);
+    let card1Description = "Get yet another free ACME shirt and enjoy food for all your needs.";
+    let card1Time = moment().subtract(33, 'minute');
+    card1Time = moment(card1Time).format('HH:mm');
+    let card1Location = "ASB";
+    let card1Room = "3209A";
 
-function formatAMPM(date) {
-    var hours = date.getHours();
-    var minutes = date.getMinutes();
-    var ampm = hours >= 12 ? 'pm' : 'am';
-    hours = hours % 12;
-    hours = hours ? hours : 12; // the hour '0' should be '12'
-    minutes = minutes < 10 ? '0'+minutes : minutes;
-    var strTime = hours + ':' + minutes + ' ' + ampm;
-    return strTime;
-  }
+    let card2Name = "Dean's Dinner";
+    deleteEvent(card2Name);
+    let card2Description = "School of Music dinner for dean's list students and friends. Honoring their amazing accomplishments as students. Solely bread will be served";
+    let card2Time = moment().subtract(16, 'minute');
+    card2Time = moment(card2Time).format('HH:mm');
+    let card2Location = "MB";
+    let card2Room = "125";
+    
+    let card3Name = "Career Fair";
+    deleteEvent(card3Name);
+    let card3Description = "Some of the company booths feature free food. Look in the Computer Science jobs for the better foods.";
+    let card3Time = moment().subtract(55, 'minute');
+    card3Time = moment(card3Time).format('HH:mm');
+    let card3Location = "BNSN";
+    let card3Room = "4112C";
+    
+    let card4Name = "Law Review Party";
+    deleteEvent(card4Name);
+    let card4Description = "Event to celebrate the law school journal's fifth publication this year.";
+    let card4Time = moment().add(2, 'hour');
+    card4Time = moment(card4Time).format('HH:mm');
+    let card4Location = "JRCB";
+    let card4Room = "2116";
+    
+    let card5Name = "Bakery Sampling";
+    deleteEvent(card5Name);
+    let card5Description = "BYU Bakery is hosting a free sampling event to present new creations. Students can taste and rate their new foods. The top ten will be add to their menu for the next year.";
+    let card5Time = moment().add(300, 'minute');
+    card5Time = moment(card5Time).format('HH:mm');
+    let card5Location = "WSC";
+    let card5Room = "146";
 
+    let card6Name = "Family History Presentation";
+    deleteEvent(card6Name);
+    let card6Description = "A presenter from Familysearch.org will be talking about the implications of machine learning in family history. Donuts will be available on a first-come first-serve basis.";
+    let card6Time = moment().add(576, 'minute');
+    card6Time = moment(card6Time).format('HH:mm');
+    let card6Location = "JSB";
+    let card6Room = "187 Auditorium";
+    
+    createEvent(card1Name, card1Description, card1Location, card1Room, card1Time);
+    createEvent(card2Name, card2Description, card2Location, card2Room, card2Time);
+    createEvent(card3Name, card3Description, card3Location, card3Room, card3Time);
+    createEvent(card4Name, card4Description, card4Location, card4Room, card4Time);
+    createEvent(card5Name, card5Description, card5Location, card5Room, card5Time);
+    createEvent(card6Name, card6Description, card6Location, card6Room, card6Time);
+
+
+    generateCardList();
+    
+}
+
+generateSampleCards();
