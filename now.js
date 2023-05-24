@@ -244,7 +244,7 @@ function generateSampleCards() {
     let card6Name = "Family History Presentation";
     deleteEvent(card6Name);
     let card6Description = "A presenter from Familysearch.org will be talking about the implications of machine learning in family history. Donuts will be available on a first-come first-serve basis.";
-    let card6Time = moment().add(576, 'minute');
+    let card6Time = moment().add(320, 'minute');
     card6Time = moment(card6Time).format('HH:mm');
     let card6Location = "JSB";
     let card6Room = "187 Auditorium";
