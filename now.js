@@ -4,6 +4,13 @@ popButton.addEventListener("click", function() {
     document.getElementById("createEventPopUp").style.display = "flex";
 });
 
+//open the pop up from top plus button
+const addTopButton = document.getElementById("addTopButton");
+addTopButton.addEventListener("click", function () {
+    document.getElementById("createEventPopUp").style.display = "flex";
+});
+
+
 //close pop up from close button
 const popClose = document.getElementById("popCancel");
 popClose.addEventListener("click", function () {
@@ -21,7 +28,7 @@ else {
         //see if it has started already
         let time = JSON.parse(localStorage.getItem(i)).time;
         let now = moment();
-        time = moment(now.get('year') + " " + (now.get('month') + 1) + " " + now.get('date') + " " + time);
+        time = moment(  );
         if (now.diff(time) > 0 && now.diff(time, 'minutes') < 60) {
             createEventCard(JSON.parse(localStorage.getItem(i)))      
         }
@@ -29,7 +36,7 @@ else {
     for (i of events) {
         let time = JSON.parse(localStorage.getItem(i)).time;
         let now = moment();
-        time = moment(now.get('year') + " " + (now.get('month') + 1) + " " + now.get('date') + " " + time);
+        time = moment(generateDateFromTime(time));
         if (now.diff(time, 'minutes') >= 60) {
             deleteEvent(i);
         }
@@ -87,8 +94,8 @@ function createEventCard (eventObject) {
     
     //time left magic
     let now = moment();
-    let startTime = moment(now.get('year') + " " + (now.get('month') + 1) + " " + now.get('date') + " " +  eventObject.time);
-    let endTime = moment(now.get('year') + " " + (now.get('month') + 1) + " " + now.get('date') + " " +  eventObject.time);
+    let startTime = moment(generateDateFromTime(eventObject.time));
+    let endTime = moment(generateDateFromTime(eventObject.time));
     endTime = endTime.add(1, 'hour');
     timeLeft.innerText = endTime.fromNow(true) + " left";
     time.innerText = moment(startTime).format('hh:mma');
@@ -137,7 +144,7 @@ addEventButton.addEventListener("click", function () {
     const time = document.getElementById("timeInput").value;
     //check to see if it has started or is too old
     let now = moment();
-    let tempTime = moment(now.get('year') + " " + (now.get('month') + 1) + " " + now.get('date') + " " + time);
+    let tempTime = moment(generateDateFromTime(time));
     if (now.diff(tempTime) > 0 && now.diff(tempTime, 'minutes') < 60 && eventName.length != 0) {
         //create the event
         createEvent(eventName, desc, building, room, time);
@@ -169,6 +176,7 @@ addEventButton.addEventListener("click", function () {
     
 });
 
+
 function generateCardList() {
     //events and list of events variables
     let events = JSON.parse(localStorage.getItem("events"));
@@ -182,7 +190,8 @@ function generateCardList() {
             //see if it has started already
             let time = JSON.parse(localStorage.getItem(i)).time;
             let now = moment();
-            time = moment(now.get('year') + " " + (now.get('month') + 1) + " " + now.get('date') + " " + time);
+            time = moment(generateDateFromTime(time));
+           
             if (now.diff(time) > 0 && now.diff(time, 'minutes') < 60) {
                 createEventCard(JSON.parse(localStorage.getItem(i)))      
             }
@@ -191,7 +200,7 @@ function generateCardList() {
         for (i of events) {
             let time = JSON.parse(localStorage.getItem(i)).time;
             let now = moment();
-            time = moment(now.get('year') + " " + (now.get('month') + 1) + " " + now.get('date') + " " + time);
+            time = moment(generateDateFromTime(time));
             if (now.diff(time, 'minutes') >= 60) {
                 deleteEvent(i);
             }
@@ -199,6 +208,10 @@ function generateCardList() {
     }
 }
 
+function generateDateFromTime(time) {
+    let now = moment();
+    return now.get('year') + "-" + (((now.get('month')+1) >= 10) ? "" : "0" ) + (now.get('month') + 1) + "-" + now.get('date') + "T" + time + ":00";
+}
 
 function generateSampleCards() {
     let card1Name = "ACME Club";

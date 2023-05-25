@@ -19,9 +19,9 @@ function createFutureCard(eventObject) {
     futureTime.className = "futureTime";
     //time magic
     let now = moment();
-    let startTime = moment(now.get('year') + " " + (now.get('month') + 1) + " " + now.get('date') + " " +  eventObject.time);
+    let startTime = moment(generateDateFromTime(eventObject.time));
     futureTime.innerText = moment(startTime).format('hh:mm a');
-    
+
     nameAndTime.appendChild(cardName);
     nameAndTime.appendChild(futureTime);
 
@@ -60,7 +60,7 @@ function generateFutureList () {
         for (i of events) {
             let time = JSON.parse(localStorage.getItem(i)).time;
             let now = moment();
-            time = moment(now.get('year') + " " + (now.get('month') + 1) + " " + now.get('date') + " " + time);
+            time = moment(generateDateFromTime(time));
             if (now.diff(time) < 0) {
                 createFutureCard(JSON.parse(localStorage.getItem(i)));
             }
@@ -74,5 +74,11 @@ function generateFutureList () {
     noMore.className= "noMore";
     futureContent.appendChild(noMore);
 }
+
+function generateDateFromTime(time) {
+    let now = moment();
+    return now.get('year') + "-" + (((now.get('month')+1) >= 10) ? "" : "0" ) + (now.get('month') + 1) + "-" + now.get('date') + "T" + time + ":00";
+  }
+  
 
 generateFutureList();

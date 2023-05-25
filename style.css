@@ -141,6 +141,21 @@ button:hover {
     display: flex;
     }
 
+.addTopButton {
+    background-color: #ff5757;
+    width: 80%;
+    max-width: 600px;
+    align-self: center;
+    padding: 1rem;
+    color: white;
+    font-weight: bold;
+    font-size: xx-large;
+    border: 0px;
+    border-radius: 20px;
+    margin: 1rem;
+    margin-bottom: .5rem;
+}
+
 .entryContainer {
     background-color: #002d5f;
     padding: 1rem;

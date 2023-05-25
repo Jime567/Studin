@@ -38,7 +38,7 @@ async function initMap() {
 
   // The map, centered on Library
   map = new Map(document.getElementById("map"), {
-    zoom: 16,
+    zoom: 17,
     center: position,
     styles: styles["default"],
     disableDefaultUI: true,
@@ -72,7 +72,7 @@ async function initMap() {
     });
     //get time in 12hr format
     let now = moment();
-    let startTime = moment(now.get('year') + " " + (now.get('month') + 1) + " " + now.get('date') + " " +  eventObject.time);
+    let startTime = moment(generateDateFromTime(eventObject.time));
     startTime = moment(startTime).format('hh:mm a');
     const contentString = "<h1 class='mapTitles'>" + eventObject.name + "</h1>" + "<p>" + eventObject.location + " " + eventObject.room + "          " + startTime + "</p>" + "<p>" + eventObject.description + "</p>";
     const infowindow = new google.maps.InfoWindow({
@@ -92,7 +92,7 @@ async function initMap() {
 
   function newOrOld(time) {
     let now = moment();
-    let tempTime = moment(now.get('year') + " " + (now.get('month') + 1) + " " + now.get('date') + " " + time);
+    let tempTime = moment(generateDateFromTime(time));
     if (now.diff(tempTime) > 0) {
       return true;
     }
@@ -115,6 +115,10 @@ async function initMap() {
 
 initMap();
 
+function generateDateFromTime(time) {
+  let now = moment();
+  return now.get('year') + "-" + (((now.get('month')+1) >= 10) ? "" : "0" ) + (now.get('month') + 1) + "-" + now.get('date') + "T" + time + ":00";
+}
 
 function getCoordinates(place) {
   switch (place) {
