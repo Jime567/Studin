@@ -1,4 +1,28 @@
 
+//profile image listener to open pop down
+const profileImg = document.getElementById("profileImg");
+profileImg.addEventListener("click", function () {
+   const dropContent = document.getElementById("dropContent");
+   dropContent.style.display = "block";
+});
+
+//profile x button
+const xBtn = document.getElementById("xBtn");
+xBtn.addEventListener("click", function () {
+    const dropContent = document.getElementById("dropContent");
+    dropContent.style.display = "none";
+});
+
+//dropDown hover 
+const dropDown = document.getElementById("dropDown");
+dropDown.addEventListener("mouseover", function () {
+    const dropContent = document.getElementById("dropContent");
+    dropContent.style.display = "block";
+});
+dropDown.addEventListener("mouseout", function () {
+    const dropContent = document.getElementById("dropContent");
+    dropContent.style.display = "none";
+});
 
 function createFutureCard(eventObject) {
 

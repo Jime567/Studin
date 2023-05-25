@@ -15,6 +15,10 @@ body {
     background: #002d5f;
     padding: 1rem;
     max-width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .main {
@@ -103,13 +107,107 @@ img {
 }
 
 .logoIMG {
-    width: 25%;
-    min-width: 150px;
-    max-width: 200px;
+    width: 30%;
+    min-width: 200px;
+    max-width: 250px;
     padding: 0px;
-    margin: 0px;
+    justify-self: center;
     
 }
+
+.profileImg {
+    width: 48px;
+    justify-self: center;
+}
+.profileImg:hover {
+    filter: alpha(opacity=80);
+    opacity: .80;
+}
+#profileImg {
+    z-index: 9;
+}
+
+.dropDown {
+    position: relative;
+    display: inline-block;
+    z-index: 3;
+    
+  }
+  
+  .dropContent {
+    display: none;
+    position: absolute;
+    background-color: white;
+    width: 325px;
+    right: 0px;
+    left: auto;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 4;
+    border-color:rgba(89, 92, 175, 0.5);
+    border-radius: 20px;
+
+  }
+  .dropDown:hover .dropContent {
+    display: block;
+  }
+  .dropDown:hover .profileImg {
+    opacity: .80;
+  }
+
+  .dropContent h2 {
+    color: black;
+    padding: 1rem;
+    align-self: center;
+    
+  }
+  .dropContent h3 {
+    color: black;
+    padding: 1rem;
+    padding-top: 0;
+    padding-bottom: 0;
+    margin: 0;
+  }
+
+  .dropContent input {
+    color: white;
+    background-color: #002d5f;
+    margin: .5rem;
+    margin-left: 1rem;
+  }
+
+  .profileButtons {
+    display:flex;
+    justify-content: space-between;
+  }
+  .dropContent button {
+    color: white;
+    background-color: #3381c6;
+    margin: .5rem;
+    border-radius: 20px;
+    border: 0;
+    padding: 1rem;
+    margin-left: 1rem;
+    margin-bottom: 1rem;
+  }
+  .topLevelProfile {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .xBtn {
+    width: 48px;
+    align-self: center;
+  }
+  .xBtn:hover {
+    opacity: .80;
+  }
+  #signOutButton {
+    margin-left: 0px;
+    margin-right: 1rem;
+    background-color: #ff5757;
+  }
+  
+  
 
 form {
     margin: .5rem;
@@ -141,7 +239,7 @@ button:hover {
     display: flex;
     }
 
-.addTopButton {
+    .addTopButton {
     background-color: #ff5757;
     width: 80%;
     max-width: 600px;
