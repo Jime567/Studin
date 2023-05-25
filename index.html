@@ -5,7 +5,7 @@
         <div class="head">
             <link rel="stylesheet" href="/style.css"/>
             <link rel="icon" href="/images/favicon.png">
-
+            <script src="/index.js" type="module"></script>
             <script src="/main.js" type="module"></script>
             <meta charset="UTF-8">
             <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -29,11 +29,11 @@
         <img class="img1" src="/images/studinPNGWhite.png"/>
         <h2>Student Dining</h2>
         <form class="loginInputs" action="/now.html">
-            <input type="text" placeholder="Din ID"/>
-            <input type="password" placeholder = "Password"/>
+            <input id="idInput" type="text" placeholder="Din ID"/>
+            <input id="passwordInput" type="password" placeholder = "Password"/>
         </form>
         <span class="signInButtonContainer">
-        <a href="/now.html"><button class="signInButton">Sign In</button></a>
+        <button class="signInButton" id="signInButton">Sign In</button>
         </span>
         </div>
     </div>

@@ -23,6 +23,33 @@ dropDown.addEventListener("mouseout", function () {
     dropContent.style.display = "none";
 });
 
+//set the user 
+const userNameText = document.getElementById("userNameText");
+userNameText.innerText = JSON.parse(localStorage.getItem("user")).user;
+
+//sign out button
+const signOutButton = document.getElementById("signOutButton");
+signOutButton.addEventListener("click", function () {
+    localStorage.removeItem("user");
+    window.location.replace("/index.html");
+});
+
+//change password
+const changePasswordBtn = document.getElementById("changePassword");
+changePasswordBtn.addEventListener("click", function () {
+    const currPassword = document.getElementById("currPassword").value;
+    const newPassword = document.getElementById("newPassword").value;
+    console.log(currPassword, JSON.parse(localStorage.getItem("user")).password);
+    if (currPassword != JSON.parse(localStorage.getItem("user")).password) {
+        alert("Current Password Incorrect");
+    }   
+    else {
+        console.log("changing password");
+        let tempUser = JSON.parse(localStorage.getItem("user"));
+        tempUser.password = newPassword;
+        localStorage.setItem("user", JSON.stringify(tempUser));
+    }
+});
 
 //open the pop up from bottom right plus button
 const popButton = document.getElementById("openForm");
