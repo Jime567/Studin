@@ -108,9 +108,12 @@ img {
 
 .logoIMG {
     width: 30%;
+    margin-left: 0;
     min-width: 200px;
     max-width: 250px;
     padding: 0px;
+    margin-top: 0;
+    margin-bottom: 0;
     justify-self: center;
     
 }
@@ -118,6 +121,9 @@ img {
 .profileImg {
     width: 48px;
     justify-self: center;
+    margin-right: 0px;
+    margin-top: 0;
+    margin-bottom: 0;
 }
 .profileImg:hover {
     filter: alpha(opacity=80);
