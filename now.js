@@ -48,30 +48,14 @@ changePasswordBtn.addEventListener("click", function () {
         let tempUser = JSON.parse(localStorage.getItem("user"));
         tempUser.password = newPassword;
         localStorage.setItem("user", JSON.stringify(tempUser));
+        document.getElementById("currPassword").value = '';
+        document.getElementById("newPassword").value = '';
     }
-});
-
-//open the pop up from bottom right plus button
-const popButton = document.getElementById("openForm");
-popButton.addEventListener("click", function() {
-    document.getElementById("createEventPopUp").style.display = "flex";
-});
-
-//open the pop up from top plus button
-const addTopButton = document.getElementById("addTopButton");
-addTopButton.addEventListener("click", function () {
-    document.getElementById("createEventPopUp").style.display = "flex";
-});
-
-
-//close pop up from close button
-const popClose = document.getElementById("popCancel");
-popClose.addEventListener("click", function () {
-    document.getElementById("createEventPopUp").style.display = "none";     
 });
 
 //events and list of events variables
 let events = JSON.parse(localStorage.getItem("events"));
+
 if (events === null) {
     events = [];
 }
@@ -95,6 +79,26 @@ else {
         }
     }
 }
+
+//open the pop up from bottom right plus button
+const popButton = document.getElementById("openForm");
+popButton.addEventListener("click", function() {
+    document.getElementById("createEventPopUp").style.display = "flex";
+});
+
+//open the pop up from top plus button
+const addTopButton = document.getElementById("addTopButton");
+addTopButton.addEventListener("click", function () {
+    document.getElementById("createEventPopUp").style.display = "flex";
+});
+
+
+//close pop up from close button
+const popClose = document.getElementById("popCancel");
+popClose.addEventListener("click", function () {
+    document.getElementById("createEventPopUp").style.display = "none";     
+});
+
 
 //make an event
 function createEvent (name, description, location, room, time) {
@@ -251,6 +255,7 @@ function generateCardList() {
         }
         //delete old events
         for (i of events) {
+            console.log(JSON.parse(localStorage.getItem(i)));
             let time = JSON.parse(localStorage.getItem(i)).time;
             let now = moment();
             time = moment(generateDateFromTime(time));
@@ -294,7 +299,7 @@ function generateSampleCards() {
     let card4Name = "Law Review Party";
     deleteEvent(card4Name);
     let card4Description = "Event to celebrate the law school journal's fifth publication this year.";
-    let card4Time = moment().add(2, 'hour');
+    let card4Time = moment().add(1, 'hour');
     card4Time = moment(card4Time).format('HH:mm');
     let card4Location = "JRCB";
     let card4Room = "2116";
@@ -302,7 +307,7 @@ function generateSampleCards() {
     let card5Name = "Bakery Sampling";
     deleteEvent(card5Name);
     let card5Description = "BYU Bakery is hosting a free sampling event to present new creations. Students can taste and rate their new foods. The top ten will be add to their menu for the next year.";
-    let card5Time = moment().add(300, 'minute');
+    let card5Time = moment().add(100, 'minute');
     card5Time = moment(card5Time).format('HH:mm');
     let card5Location = "WSC";
     let card5Room = "146";
@@ -310,7 +315,7 @@ function generateSampleCards() {
     let card6Name = "Family History Presentation";
     deleteEvent(card6Name);
     let card6Description = "A presenter from Familysearch.org will be talking about the implications of machine learning in family history. Donuts will be available on a first-come first-serve basis.";
-    let card6Time = moment().add(320, 'minute');
+    let card6Time = moment().add(120, 'minute');
     card6Time = moment(card6Time).format('HH:mm');
     let card6Location = "JSB";
     let card6Room = "187 Auditorium";
@@ -321,10 +326,9 @@ function generateSampleCards() {
     createEvent(card4Name, card4Description, card4Location, card4Room, card4Time);
     createEvent(card5Name, card5Description, card5Location, card5Room, card5Time);
     createEvent(card6Name, card6Description, card6Location, card6Room, card6Time);
-
-
     generateCardList();
     
 }
 
 generateSampleCards();
+
