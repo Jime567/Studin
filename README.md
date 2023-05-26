@@ -32,3 +32,9 @@ StuDin solves the problem by providing on-campus meals for free to all students.
 * **Applicaiton Elements:** The colors work well together and contrast is used appropriately
 * **Applicaiton Text Cotnent:** Uniform font used throughout
 * **Applicaiton Images:** Images sized and placed appropriately
+
+## JavaScript deliverable
+- **Login:**  Logging in takes user to the now page
+- **Aatabase:** Username, password, and events are stored
+- **WebSocket:** Websockets will deliver events from other users in the future
+- **Application Aogic:** The events are deleted automatically 1 hour after their start time. Events that have started and are ongoing appear in the now screen. Events that are not ongoing appear in the future screen. Icons for events on the map greyed out if they are not ongoing.
