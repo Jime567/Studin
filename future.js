@@ -40,12 +40,10 @@ const changePasswordBtn = document.getElementById("changePassword");
 changePasswordBtn.addEventListener("click", function () {
     const currPassword = document.getElementById("currPassword").value;
     const newPassword = document.getElementById("newPassword").value;
-    console.log(currPassword, JSON.parse(localStorage.getItem("user")).password);
     if (currPassword != JSON.parse(localStorage.getItem("user")).password) {
         alert("Current Password Incorrect");
     }   
     else {
-        console.log("changing password");
         let tempUser = JSON.parse(localStorage.getItem("user"));
         tempUser.password = newPassword;
         localStorage.setItem("user", JSON.stringify(tempUser));
