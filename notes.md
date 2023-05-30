@@ -20,3 +20,7 @@
 
 ## CSS ##
 
+## CORS ##
+### Cross Origin Resource Sharing
+HTTP/2 200 OK
+Access-Control-Allow-OriginL https://wellsfargo.com
