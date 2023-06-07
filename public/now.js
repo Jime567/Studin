@@ -265,7 +265,12 @@ function generateCardList() {
 
 function generateDateFromTime(time) {
     let now = moment();
-    return now.get('year') + "-" + (((now.get('month')+1) >= 10) ? "" : "0" ) + (now.get('month') + 1) + "-" + now.get('date') + "T" + time + ":00";
+    
+    let laDate = now.get('year') + "-" 
+    + (((now.get('month')+1) >= 10) ? "" : "0" ) + (now.get('month') + 1) + "-" 
+    + ((now.get('date') >= 10) ? "" : "0") +  now.get('date') 
+    + "T" + time + ":00";
+    return laDate;
 }
 
 function generateSampleCards() {
