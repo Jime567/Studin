@@ -38,3 +38,11 @@ StuDin solves the problem by providing on-campus meals for free to all students.
 - **Aatabase:** Username, password, and events are stored
 - **WebSocket:** Websockets will deliver events from other users in the future
 - **Application Aogic:** The events are deleted automatically 1 hour after their start time. Events that have started and are ongoing appear in the now screen. Events that are not ongoing appear in the future screen. Icons for events on the map greyed out if they are not ongoing.
+
+## Service deliverable
+
+- Made Node.js and Express HTTP service
+- **Calls to third party endpoints** - Gets the weathers
+- **Backend service endpoints** - Endpoints for getting coords for building locations
+- **Frontend calls service endpoints** - The map calls my api to get location information for mapping buildings
+
