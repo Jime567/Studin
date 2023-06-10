@@ -73,6 +73,7 @@ async function createAccount(user) {
             'Content-type': 'application/json; charset=UTF-8'
         }
     });
+    logIn(user);
 }
 //sign in button
 const signInBtn = document.getElementById("signInButton");
