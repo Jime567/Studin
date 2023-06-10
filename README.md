@@ -42,7 +42,13 @@ StuDin solves the problem by providing on-campus meals for free to all students.
 ## Service deliverable
 
 - Made Node.js and Express HTTP service
-- **Calls to third party endpoints** - Gets the weathers
-- **Backend service endpoints** - Endpoints for getting coords for building locations
-- **Frontend calls service endpoints** - The map calls my api to get location information for mapping buildings
+- **Calls to third party endpoints:** Gets the weathers
+- **Backend service endpoints:** Endpoints for getting coords for building locations
+- **Frontend calls service endpoints:** The map calls my api to get location information for mapping buildings
+
+## MongoDB Deliverable
+
+- **MongoDB Atlas database created:** done
+- **Endpoints for data:** endpoints are used for all interactions with DB
+- **Stores data in MongoDB:** Events are stored and retrieved from Mongo
 
