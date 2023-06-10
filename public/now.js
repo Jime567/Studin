@@ -23,6 +23,11 @@ dropDown.addEventListener("mouseout", function () {
     dropContent.style.display = "none";
 });
 
+//user
+const userName = fetch('/user/me', {
+    method: 'get',
+})
+
 //set the user 
 const userNameText = document.getElementById("userNameText");
 userNameText.innerText = JSON.parse(localStorage.getItem("user")).user;
