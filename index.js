@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+const DB = require('./database.js');
 
 //Service Port
 const port = 4000;
@@ -14,7 +15,30 @@ app.use(express.static('public'));
 const apiRouter = express.Router();
 app.use('/api', apiRouter);
 
-apiRouter.get('/:place', (req, res) => {
+//getEvents
+apiRouter.get('/getEvents', async (req, res) => {
+  const events = await DB.getEvents();
+  res.send(events);
+})
+
+//addEvents
+apiRouter.post('/addEvent', async (req, res) => {
+  DB.addEvent(req.body);
+  const events = await DB.getEvents();
+  res.send(events);
+});
+
+//deleteEvent
+apiRouter.delete('/deleteEvent/:eventName', (req, res) => {
+  console.log("Purging " + req.params.eventName);
+  DB.deleteEvent(req.params.eventName);
+  const events =  DB.getEvents();
+  res.send(events);
+})
+
+//get coordinates endpoints
+apiRouter.get('/place/:place', (req, res) => {
+    console.log("Betraying the location of " + req.params.place);
     let coords;
     let place = req.params.place;
 

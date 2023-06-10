@@ -99,9 +99,9 @@ function createFutureCard(eventObject) {
 
 }
 
-function generateFutureList () {
+async function generateFutureList () {
 
-    let events = JSON.parse(localStorage.getItem("events"));
+    let events = await getEvents();
 
     if ((events === null)) {
         events = [];
@@ -110,11 +110,11 @@ function generateFutureList () {
 
         let i;
         for (i of events) {
-            let time = JSON.parse(localStorage.getItem(i)).time;
+            let time = i.time;
             let now = moment();
             time = moment(generateDateFromTime(time));
             if (now.diff(time) < 0) {
-                createFutureCard(JSON.parse(localStorage.getItem(i)));
+                createFutureCard(i);
             }
         
         }
@@ -125,6 +125,19 @@ function generateFutureList () {
     noMore.innerText = "No more...";
     noMore.className= "noMore";
     futureContent.appendChild(noMore);
+}
+
+async function getEvents() {
+    console.log("Getting all of the event from databse");
+    try {
+        const response = await fetch('/api/getEvents', {
+            method: 'GET',
+        });
+        return response.json();
+    }
+    catch {
+        console.log("Refusal to get events");
+    }
 }
 
 function generateDateFromTime(time) {

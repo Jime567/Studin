@@ -101,7 +101,7 @@ async function initMap() {
 
 
   //Generate the markers
-  let events = JSON.parse(localStorage.getItem("events"));
+  let events = await getEvents();
   if (events === null) {
     events = [];
   }
@@ -109,7 +109,7 @@ async function initMap() {
   else {
     let i;
     for ( i of events) {
-    let eventObject = JSON.parse(localStorage.getItem(i));
+    let eventObject = i;
     let pos = await getCoordinates(eventObject.location);
     let currOrNot = newOrOld(eventObject.time);
     let hamburger = "/images/hamburgerNot.png";
@@ -143,6 +143,18 @@ async function initMap() {
     }
   }
 
+  async function getEvents() {
+    console.log("Getting all of the event from databse");
+    try {
+        const response = await fetch('/api/getEvents', {
+            method: 'GET',
+        });
+        return response.json();
+    }
+    catch {
+        console.log("Refusal to get events");
+    }
+}
 
   function newOrOld(time) {
     let now = moment();
@@ -181,7 +193,7 @@ function generateDateFromTime(time) {
 async function getCoordinates(place) {
   let coords;
   try {
-    const response = await fetch('/api/' + place);
+    const response = await fetch('/api/place/' + place);
     coords = await response.json();
     console.log(coords);
     return coords;

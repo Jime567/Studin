@@ -52,31 +52,6 @@ changePasswordBtn.addEventListener("click", function () {
 });
 
 //events and list of events variables
-let events = JSON.parse(localStorage.getItem("events"));
-
-if (events === null) {
-    events = [];
-}
-else {
-    let i;
-    for (i of events) {
-        //see if it has started already
-        let time = JSON.parse(localStorage.getItem(i)).time;
-        let now = moment();
-        time = moment(  );
-        if (now.diff(time) > 0 && now.diff(time, 'minutes') < 60) {
-            createEventCard(JSON.parse(localStorage.getItem(i)))      
-        }
-    }
-    for (i of events) {
-        let time = JSON.parse(localStorage.getItem(i)).time;
-        let now = moment();
-        time = moment(generateDateFromTime(time));
-        if (now.diff(time, 'minutes') >= 60) {
-            deleteEvent(i);
-        }
-    }
-}
 
 //open the pop up from bottom right plus button
 const popButton = document.getElementById("openForm");
@@ -98,6 +73,21 @@ popClose.addEventListener("click", function () {
 });
 
 
+async function addToDatabase(newEvent) {
+    console.log(`Adding ${newEvent.name} to the Database`);
+    try {
+        const response = await fetch('/api/addEvent', {
+          method: 'POST',
+          headers: {'content-type': 'application/json'},
+          body: JSON.stringify(newEvent),
+        });
+  
+        const scores = await response.json();
+      } catch {
+        console.log("Obviously, there has been an error");
+      }
+}
+
 //make an event
 function createEvent (name, description, location, room, time) {
     const newEvent = {
@@ -107,16 +97,14 @@ function createEvent (name, description, location, room, time) {
         room : room,
         time: time
       }
-      window.localStorage.setItem(name, JSON.stringify(newEvent));
-      events.push(name);
-      localStorage.setItem("events", JSON.stringify(events));
+      //add to database
+     addToDatabase(newEvent);
 }
-
 
 function createEventCard (eventObject) {
     const entryContainer = document.createElement("div");
     entryContainer.className = "entryContainer";
-    entryContainer.id = "entryContainer";
+    entryContainer.id = eventObject.name;
     const topLevel = document.createElement("span");
     topLevel.className = "topLevel";
     const nameLocation = document.createElement("div"); 
@@ -166,26 +154,46 @@ function createEventCard (eventObject) {
 
     //make delete out button functionality
     outButton.addEventListener("click", function () {
+        
+        const cards = document.querySelectorAll(".entryContainer");
+        let c;
+        for (c of cards) {
+            if (c.id === eventObject.name) {
+                c.remove();
+            }
+        }
         deleteEvent(eventObject.name);
     });
     
 }
 
-function deleteEvent(name) {
-    const index = events.indexOf(name);
-        events.splice(index, 1);
-        localStorage.setItem("events", JSON.stringify(events));
-        window.localStorage.removeItem(name);
-        const cards = document.querySelectorAll("#entryContainer");
-        let c;
-        for (c of cards) {
-            c.remove();
-        }
-        generateCardList();
+async function deleteEvent(name) {
+    console.log(`Deleting ${name} from the Database`);
+    try {
+        const response = await fetch('/api/deleteEvent/' + name, {
+          method: 'DELETE',
+        });
+      } catch {
+        console.log("Obviously, there has been no deletion");
+      }
 }
 
+async function getEvents() {
+    console.log("Getting all of the event from databse");
+    try {
+        const response = await fetch('/api/getEvents', {
+            method: 'GET',
+        });
+        return response.json();
+    }
+    catch {
+        console.log("Refusal to get events");
+    }
+}
+
+
 const addEventButton = document.getElementById("addEventButton");
-addEventButton.addEventListener("click", function () {
+addEventButton.addEventListener("click", async function () {
     //event name
     const eventName = document.getElementById("eventNameInput").value;
     
@@ -202,8 +210,9 @@ addEventButton.addEventListener("click", function () {
     let tempTime = moment(generateDateFromTime(time));
     if (now.diff(tempTime) > 0 && now.diff(tempTime, 'minutes') < 60 && eventName.length != 0) {
         //create the event
-        createEvent(eventName, desc, building, room, time);
-        createEventCard(JSON.parse(localStorage.getItem(eventName)));
+        await createEvent(eventName, desc, building, room, time);
+        createEventCard({name : eventName, description : desc, location : building, room : room, time : time})
+       
         document.getElementById("createEventPopUp").style.display = "none";  
         document.getElementById("eventNameInput").value = "";
         document.getElementById("descriptionInput").value = "";
@@ -232,9 +241,9 @@ addEventButton.addEventListener("click", function () {
 });
 
 
-function generateCardList() {
+async function generateCardList() {
     //events and list of events variables
-    let events = JSON.parse(localStorage.getItem("events"));
+    let events = await getEvents();
     if (events === null) {
         events = [];
         console.log("No Events");
@@ -243,21 +252,21 @@ function generateCardList() {
         let i;
         for (i of events) {
             //see if it has started already
-            let time = JSON.parse(localStorage.getItem(i)).time;
+            let time = i.time;
             let now = moment();
             time = moment(generateDateFromTime(time));
            
             if (now.diff(time) > 0 && now.diff(time, 'minutes') < 60) {
-                createEventCard(JSON.parse(localStorage.getItem(i)))      
+                createEventCard(i)      
             }
         }
         //delete old events
         for (i of events) {
-            let time = JSON.parse(localStorage.getItem(i)).time;
+            let time = i.time;
             let now = moment();
             time = moment(generateDateFromTime(time));
             if (now.diff(time, 'minutes') >= 60) {
-                deleteEvent(i);
+                deleteEvent(i.name);
             }
         }
     }
@@ -328,9 +337,11 @@ function generateSampleCards() {
     createEvent(card4Name, card4Description, card4Location, card4Room, card4Time);
     createEvent(card5Name, card5Description, card5Location, card5Room, card5Time);
     createEvent(card6Name, card6Description, card6Location, card6Room, card6Time);
-    generateCardList();
+    // generateCardList();
     
 }
 
-generateSampleCards();
+generateCardList();
+
+
 
