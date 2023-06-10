@@ -13,10 +13,27 @@ const eventCollection = db.collection('events');
 const userName = process.env.MONGOUSER;
 const password = process.env.MONGOPASSWORD;
 const hostname = process.env.MONGOHOSTNAME;
+
 const userCollection = db.collection('user');
 
-function getUser(token) {
+function getUserToken(token) {
     return userCollection.findOne({token: token});
+}
+
+function getUser(dinID) {
+    return userCollection.findOne({dinID: dinID});
+}
+
+async function updatePassword(dinID, password) {
+    const passwordHash = await bcrypt.hash(password, 10);
+    const filter = { dinID: dinID };
+    const updateDoc = {
+        $set: {
+            password: passwordHash
+        }
+    };
+    const result = await userCollection.updateOne(filter, updateDoc);
+    return result;
 }
 
 async function createUser(dinID, password) {
@@ -57,4 +74,4 @@ async function getEvents() {
     return events.toArray();
 }
 
-module.exports = {addEvent, getEvents, deleteEvent, getUser, createUser};
+module.exports = {addEvent, getEvents, deleteEvent, getUser, createUser, getUserToken, updatePassword};

@@ -24,9 +24,18 @@ dropDown.addEventListener("mouseout", function () {
     dropContent.style.display = "none";
 });
 
+//user
+async function getUser() {
+  const response = await fetch('/user/me', {
+      method: 'GET'
+  });
+  let jaysun = await response.json();
+  return jaysun.dinID;
+}
 //set the user 
+const userName = await getUser();
 const userNameText = document.getElementById("userNameText");
-userNameText.innerText = JSON.parse(localStorage.getItem("user")).user;
+userNameText.innerText = userName;
 
 //sign out button
 const signOutButton = document.getElementById("signOutButton");
@@ -35,23 +44,38 @@ signOutButton.addEventListener("click", function () {
     window.location.replace("/index.html");
 });
 
-//change password
+//change password btn
 const changePasswordBtn = document.getElementById("changePassword");
 changePasswordBtn.addEventListener("click", function () {
     const currPassword = document.getElementById("currPassword").value;
     const newPassword = document.getElementById("newPassword").value;
-    if (currPassword != JSON.parse(localStorage.getItem("user")).password) {
-        alert("Current Password Incorrect");
-    }   
-    else {
-        let tempUser = JSON.parse(localStorage.getItem("user"));
-        tempUser.password = newPassword;
-        localStorage.setItem("user", JSON.stringify(tempUser));
-        document.getElementById("currPassword").value = '';
-        document.getElementById("newPassword").value = '';
-    }
+    changePassword(currPassword, newPassword);
 });
+//change password func
+async function changePassword(oldPassword, newPassword) {
+    let body = {
+        dinID: userName,
+        password: oldPassword,
+        newPassword: newPassword
+    }
 
+    const response = await fetch('/auth/changePassword', {
+        method: 'post',
+        body: JSON.stringify(body),
+        headers: {
+            'Content-type': 'application/json; charset=UTF-8'
+        }
+    });
+
+    if (response.ok) {
+        alert("Password Changed Successfully");
+        document.getElementById("currPassword").value = "";
+        document.getElementById("newPassword").value = "";
+    }
+    else {
+        alert("Incorrect Password");
+    }
+}
 // Initialize and add the map
 let map;
 

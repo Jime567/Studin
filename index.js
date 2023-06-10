@@ -20,6 +20,12 @@ app.use(express.static('public'));
 const apiRouter = express.Router();
 app.use('/api', apiRouter);
 
+// Default error handler
+app.use(function (err, req, res, next) {
+  res.status(500).send({ type: err.name, message: err.message });
+});
+
+
 //create user unless they already exist in DB
 app.post('/auth/create', async (req, res) => {
   if (await DB.getUser(req.body.dinID)) {
@@ -46,6 +52,18 @@ function setAuthCookies(res, authToken) {
   });
 }
 
+app.post('/auth/changePassword', async (req, res) => {
+  const user = await DB.getUser(req.body.dinID);
+  if (await bcrypt.compare(req.body.password, user.password)) {
+    console.log(`Changing ${req.body.dinID}'s password`);
+    DB.updatePassword(req.body.dinID,req.body.newPassword);
+    return res.send({msg: "Successfully Changed"});
+  }
+  else {
+    return res.status(401).send({msg: 'Incorrect Password'});
+  }
+})
+
 app.post('/auth/login', async (req, res) => {
   const user = await DB.getUser(req.body.dinID);
   if (user) {
@@ -61,13 +79,19 @@ app.post('/auth/login', async (req, res) => {
 
 app.get('/user/me', async (req, res) => {
   authToken = req.cookies['token'];
-  const user = await DB.getUser(authToken);
+  const user = await DB.getUserToken(authToken);
   if (user) {
     res.send({dinID: user.dinID});
     return;
   }
-  res.status(401).setDefaultEncoding({msg: 'Unauthorized'});
+  res.status(401).send({msg: 'Unauthorized'});
 });
+
+app.delete('/auth/logout', (req, res) => {
+  res.clearCookie('token');
+  console.log("Deleting Cookies");
+  res.status(204).end();
+})
 
 //getEvents
 apiRouter.get('/getEvents', async (req, res) => {

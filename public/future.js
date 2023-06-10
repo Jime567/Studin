@@ -24,9 +24,19 @@ dropDown.addEventListener("mouseout", function () {
     dropContent.style.display = "none";
 });
 
-//set the user 
-const userNameText = document.getElementById("userNameText");
-userNameText.innerText = JSON.parse(localStorage.getItem("user")).user;
+
+//user
+async function getUser() {
+    const response = await fetch('/user/me', {
+        method: 'GET'
+    });
+    let jaysun = await response.json();
+    return jaysun.dinID;
+  }
+  //set the user 
+  const userName = await getUser();
+  const userNameText = document.getElementById("userNameText");
+  userNameText.innerText = userName;
 
 //sign out button
 const signOutButton = document.getElementById("signOutButton");
@@ -35,39 +45,55 @@ signOutButton.addEventListener("click", function () {
     window.location.replace("/index.html");
 });
 
-//change password
+//change password btn
 const changePasswordBtn = document.getElementById("changePassword");
 changePasswordBtn.addEventListener("click", function () {
     const currPassword = document.getElementById("currPassword").value;
     const newPassword = document.getElementById("newPassword").value;
-    if (currPassword != JSON.parse(localStorage.getItem("user")).password) {
-        alert("Current Password Incorrect");
-    }   
-    else {
-        let tempUser = JSON.parse(localStorage.getItem("user"));
-        tempUser.password = newPassword;
-        localStorage.setItem("user", JSON.stringify(tempUser));
-        document.getElementById("currPassword").value = '';
-        document.getElementById("newPassword").value = '';
-    }
+    changePassword(currPassword, newPassword);
 });
+//change password func
+async function changePassword(oldPassword, newPassword) {
+    let body = {
+        dinID: userName,
+        password: oldPassword,
+        newPassword: newPassword
+    }
+
+    const response = await fetch('/auth/changePassword', {
+        method: 'post',
+        body: JSON.stringify(body),
+        headers: {
+            'Content-type': 'application/json; charset=UTF-8'
+        }
+    });
+
+    if (response.ok) {
+        alert("Password Changed Successfully");
+        document.getElementById("currPassword").value = "";
+        document.getElementById("newPassword").value = "";
+    }
+    else {
+        alert("Incorrect Password");
+    }
+}
 
 function createFutureCard(eventObject) {
 
-    futureEvent = document.createElement("div");
+    let futureEvent = document.createElement("div");
     futureEvent.className = "futureEvent";
 
-    headerLevel = document.createElement("div");
+    let headerLevel = document.createElement("div");
     headerLevel.className = "headerLevel";
 
-    nameAndTime = document.createElement("span");
+    let nameAndTime = document.createElement("span");
     nameAndTime.className = "nameAndTime";
 
-    cardName = document.createElement("p");
+    let cardName = document.createElement("p");
     cardName.className = "cardName";
     cardName.innerText = eventObject.name;
 
-    futureTime = document.createElement("p");
+    let futureTime = document.createElement("p");
     futureTime.className = "futureTime";
     //time magic
     let now = moment();
@@ -77,7 +103,7 @@ function createFutureCard(eventObject) {
     nameAndTime.appendChild(cardName);
     nameAndTime.appendChild(futureTime);
 
-    futureLocation = document.createElement("p");
+    let futureLocation = document.createElement("p");
     futureLocation.className = "futureLocation";
     futureLocation.innerText = eventObject.location + " " + eventObject.room;
 
@@ -85,10 +111,10 @@ function createFutureCard(eventObject) {
     headerLevel.appendChild(futureLocation);
     futureEvent.append(headerLevel);
 
-    bottomLevel = document.createElement("div");
+    let bottomLevel = document.createElement("div");
     bottomLevel.className = "bottomLevel";
 
-    description = document.createElement("p");
+    let description = document.createElement("p");
     description.innerText = eventObject.description;
 
     bottomLevel.appendChild(description);
@@ -121,7 +147,7 @@ async function generateFutureList () {
     }
 
     const futureContent = document.getElementById("futureContent");
-    noMore = document.createElement("p");
+    let noMore = document.createElement("p");
     noMore.innerText = "No more...";
     noMore.className= "noMore";
     futureContent.appendChild(noMore);
