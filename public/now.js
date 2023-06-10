@@ -39,27 +39,49 @@ userNameText.innerText = userName;
 //sign out button
 const signOutButton = document.getElementById("signOutButton");
 signOutButton.addEventListener("click", function () {
-    localStorage.removeItem("user");
-    window.location.replace("/index.html");
+    signOut();
+    
 });
 
-//change password
+//sign out function
+async function signOut() {
+    fetch('/auth/logout', {
+        method: 'DELETE',
+    }).then(() => (window.location.href = '/'));
+}
+
+//change password btn
 const changePasswordBtn = document.getElementById("changePassword");
 changePasswordBtn.addEventListener("click", function () {
     const currPassword = document.getElementById("currPassword").value;
     const newPassword = document.getElementById("newPassword").value;
-    if (currPassword != JSON.parse(localStorage.getItem("user")).password) {
-        alert("Current Password Incorrect");
-    }   
-    else {
-        let tempUser = JSON.parse(localStorage.getItem("user"));
-        tempUser.password = newPassword;
-        localStorage.setItem("user", JSON.stringify(tempUser));
-        document.getElementById("currPassword").value = '';
-        document.getElementById("newPassword").value = '';
-    }
+    changePassword(currPassword, newPassword);
 });
+//change password func
+async function changePassword(oldPassword, newPassword) {
+    let body = {
+        dinID: userName,
+        password: oldPassword,
+        newPassword: newPassword
+    }
 
+    const response = await fetch('/auth/changePassword', {
+        method: 'post',
+        body: JSON.stringify(body),
+        headers: {
+            'Content-type': 'application/json; charset=UTF-8'
+        }
+    });
+
+    if (response.ok) {
+        alert("Password Changed Successfully");
+        document.getElementById("currPassword").value = "";
+        document.getElementById("newPassword").value = "";
+    }
+    else {
+        alert("Incorrect Password");
+    }
+}
 //events and list of events variables
 
 //open the pop up from bottom right plus button
@@ -188,7 +210,6 @@ async function deleteEvent(name) {
 }
 
 async function getEvents() {
-    console.log("Getting all of the event from databse");
     try {
         const response = await fetch('/api/getEvents', {
             method: 'GET',
