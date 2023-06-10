@@ -52,3 +52,11 @@ StuDin solves the problem by providing on-campus meals for free to all students.
 - **Endpoints for data:** endpoints are used for all interactions with DB
 - **Stores data in MongoDB:** Events are stored and retrieved from Mongo
 
+## Login deliverable
+
+Users can create accounts, sign in and out, and change their passwords
+
+- **User registration** - Creates a new account in the database.
+- **existing user** - Verifies the user's name and password from data stored in the database
+- **Use MongoDB to store credentials** - Yes
+- **Restricts functionality** - Can't use profile menu
