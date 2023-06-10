@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const DB = require('./database.js');
+const cookieParser = require('cookie-parser');
 
 //Service Port
 const port = 4000;
@@ -8,12 +9,61 @@ const port = 4000;
 //JSON parsing middleware
 app.use(express.json());
 
+//cookie parser middleware
+app.use(cookieParser());
+
 //static pages I wrote get served
 app.use(express.static('public'));
 
 //router for service endpoints
 const apiRouter = express.Router();
 app.use('/api', apiRouter);
+
+//create user unless they already exist in DB
+app.post('/auth/create', async (req, res) => {
+  if (await DB.getUser(req.body.dinID)) {
+    res.status(409).send({ msg: 'Existing user' });
+  } else {
+    const user = await DB.createUser(req.body.dinID, req.body.password);
+
+    //set a cookie
+    setAuthCookies(res, user.token);
+
+    res.send({
+      id: user._id,
+    });
+  }
+});
+
+//setting auth token cookie
+function setAuthCookies(res, authToken) {
+  res.cookie('token', authToken, {
+    secure: true,
+    httpOnly: true,
+    sameSite: 'strict'
+  });
+}
+
+app.post('/auth/login', async (req, res) => {
+  const user = await getUser(req.body.dinID);
+  if (user) {
+    if (await bcrypt.compare(req.body.password, user.password)) {
+      setAuthCookie(res, user.token);
+      return;
+    }
+  }
+  res.status(401).send({ msg: 'unauthorized'});
+});
+
+app.get('/user/me', async (req, res) => {
+  authToken = req.cookies['token'];
+  const user = await Collection.findOne({token: authToken});
+  if (user) {
+    res.send({dinID: user.dinID});
+    return;
+  }
+  res.status(401).setDefaultEncoding({msg: 'Unauthorized'});
+});
 
 //getEvents
 apiRouter.get('/getEvents', async (req, res) => {
