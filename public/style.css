@@ -79,6 +79,20 @@ h2 {
 
 }
 
+#createAccount {
+    background-color: #002d5f;
+    margin-left: .3rem;
+}
+
+#createAccount:hover {
+    background-color: white;
+    border: 20px;
+    color: #002d5f;
+    opacity: 1.3;
+    border-color:#ff5757;
+    
+}
+
 .img1 {
     align-self: center;
     margin-top: 3rem;

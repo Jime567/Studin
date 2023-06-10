@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+const bcrypt = require('bcrypt');
 const DB = require('./database.js');
 const cookieParser = require('cookie-parser');
 
@@ -25,6 +26,7 @@ app.post('/auth/create', async (req, res) => {
     res.status(409).send({ msg: 'Existing user' });
   } else {
     const user = await DB.createUser(req.body.dinID, req.body.password);
+    console.log(`Adding ${req.body.dinID} to the Din District`);
 
     //set a cookie
     setAuthCookies(res, user.token);
@@ -45,10 +47,12 @@ function setAuthCookies(res, authToken) {
 }
 
 app.post('/auth/login', async (req, res) => {
-  const user = await getUser(req.body.dinID);
+  const user = await DB.getUser(req.body.dinID);
   if (user) {
     if (await bcrypt.compare(req.body.password, user.password)) {
-      setAuthCookie(res, user.token);
+      console.log(`Authorizing ${req.body.dinID}`);
+      setAuthCookies(res, user.token);
+      res.send({id: user._id});
       return;
     }
   }

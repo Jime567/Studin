@@ -12,19 +12,80 @@ function gatherInput() {
         idInput.value = "";
         passwordInput = "";
         let user = {
-            user: id,
+            dinID: id,
             password: password
         }
-        localStorage.setItem("user", JSON.stringify(user));
-        window.location.replace("/now.html");
+        console.log(user);
+        createAccount(user);
+        //window.location.replace("/now.html");
     }
 }
 
+function gatherInputLog() {
+    let idInput = document.getElementById("idInput");
+    let passwordInput = document.getElementById("passwordInput");
+
+    let id = idInput.value;
+    let password = passwordInput.value;
+    if (id === "" || password === "") {
+        alert("Cannot be Empty");
+    }
+    else {
+        idInput.value = "";
+        passwordInput = "";
+        let user = {
+            dinID: id,
+            password: password
+        }
+        console.log(user);
+        logIn(user);
+
+        
+    }
+}
+
+//log in function
+async function logIn(user) {
+    const response = await fetch('/auth/login', {
+        method: 'post',
+        body: JSON.stringify(user),
+        headers: {
+            'Content-type': 'application/json; charset=UTF-8'
+        }
+    });
+    
+
+    if (!response.ok) {
+        alert("Incorrect DinID or Password");
+        return;
+    }
+    else {
+        window.location.replace("/now.html"); 
+    }
+}
+
+//create account function
+async function createAccount(user) {
+    const response = await fetch('/auth/create', {
+        method: 'post',
+        body: JSON.stringify(user),
+        headers: {
+            'Content-type': 'application/json; charset=UTF-8'
+        }
+    });
+}
 //sign in button
 const signInBtn = document.getElementById("signInButton");
 signInBtn.addEventListener("click", function () {
+    gatherInputLog();
+});
+
+//create account button
+const createAccountBtn = document.getElementById("createAccount");
+createAccountBtn.addEventListener("click", function () {
     gatherInput();
 });
+
 
 
 //lame weather api call stuff
