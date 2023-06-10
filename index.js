@@ -61,7 +61,7 @@ app.post('/auth/login', async (req, res) => {
 
 app.get('/user/me', async (req, res) => {
   authToken = req.cookies['token'];
-  const user = await Collection.findOne({token: authToken});
+  const user = await DB.getUser(authToken);
   if (user) {
     res.send({dinID: user.dinID});
     return;

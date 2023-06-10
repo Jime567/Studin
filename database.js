@@ -15,8 +15,8 @@ const password = process.env.MONGOPASSWORD;
 const hostname = process.env.MONGOHOSTNAME;
 const userCollection = db.collection('user');
 
-function getUser(dinID) {
-    return userCollection.findOne({dinID: dinID});
+function getUser(token) {
+    return userCollection.findOne({token: token});
 }
 
 async function createUser(dinID, password) {

@@ -24,13 +24,17 @@ dropDown.addEventListener("mouseout", function () {
 });
 
 //user
-const userName = fetch('/user/me', {
-    method: 'get',
-})
-
+async function getUser() {
+    const response = await fetch('/user/me', {
+        method: 'GET'
+    });
+    let jaysun = await response.json();
+    return jaysun.dinID;
+}
 //set the user 
+const userName = await getUser();
 const userNameText = document.getElementById("userNameText");
-userNameText.innerText = JSON.parse(localStorage.getItem("user")).user;
+userNameText.innerText = userName;
 
 //sign out button
 const signOutButton = document.getElementById("signOutButton");
