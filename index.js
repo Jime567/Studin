@@ -3,6 +3,8 @@ const app = express();
 const bcrypt = require('bcrypt');
 const DB = require('./database.js');
 const cookieParser = require('cookie-parser');
+const { peerProxy } = require('./peerProxy.js');
+
 
 //Service Port
 const port = 4000;
@@ -112,7 +114,7 @@ apiRouter.delete('/deleteEvent/:eventName', (req, res) => {
   DB.deleteEvent(req.params.eventName);
   const events =  DB.getEvents();
   res.send(events);
-})
+});
 
 //get coordinates endpoints
 apiRouter.get('/place/:place', (req, res) => {
@@ -280,6 +282,8 @@ apiRouter.get('/place/:place', (req, res) => {
     res.send(coords);
 });
 
-app.listen(port, () => {
+const httpService = app.listen(port, () => {
     console.log(`Listening on port ${port}`);
   });
+
+peerProxy(httpService);

@@ -130,6 +130,8 @@ function createEvent (name, description, location, room, time) {
       }
       //add to database
      addToDatabase(newEvent);
+     //send through websocket
+     sendEvent(newEvent);
 }
 
 function createEventCard (eventObject) {
@@ -300,6 +302,27 @@ async function generateCardList() {
             }
         }
     }
+}
+
+
+//configure websocket
+const protocol = window.location.protocol === 'http:' ? 'ws' : 'wss';
+const socket = new WebSocket(`${protocol}://${window.location.host}/ws`);
+socket.onopen = (event) => {
+    console.log("Websocket Connected");
+};
+socket.onclose = (event) => {
+    console.log("Websocket Disconnected");
+}
+socket.onmessage = async (event) => {
+    console.log("Received WS: " + JSON.parse(await event.data.text()));
+    createEventCard(JSON.parse(await event.data.text()));
+}
+
+
+function sendEvent (event) {
+    console.log("Sending Event")
+    socket.send(JSON.stringify(event));
 }
 
 function generateDateFromTime(time) {
