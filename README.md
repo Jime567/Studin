@@ -60,3 +60,12 @@ Users can create accounts, sign in and out, and change their passwords
 - **existing user** - Verifies the user's name and password from data stored in the database
 - **Use MongoDB to store credentials** - Yes
 - **Restricts functionality** - Can't use profile menu
+
+
+## WebSocket deliverable
+
+- **Backend listens for WebSocket connection** - yes
+- **Frontend makes WebSocket connection** - yes
+- **Data sent over WebSocket connection** - sends events
+- **WebSocket data displayed** - displays events in realtime as they are generated
+
