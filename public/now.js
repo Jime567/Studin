@@ -390,10 +390,9 @@ function generateSampleCards() {
     createEvent(card4Name, card4Description, card4Location, card4Room, card4Time);
     createEvent(card5Name, card5Description, card5Location, card5Room, card5Time);
     createEvent(card6Name, card6Description, card6Location, card6Room, card6Time);
-    // generateCardList();
     
 }
-
+//generateSampleCards();
 generateCardList();
 
 
