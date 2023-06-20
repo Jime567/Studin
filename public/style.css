@@ -132,6 +132,29 @@ img {
     
 }
 
+footer {
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+
+}
+
+.jpLogo {
+    width: 5rem;
+    margin-right: 1rem;
+    max-width: 125px;
+    padding: 1rem;
+    margin-top: 0;
+    margin-bottom: 0;
+    justify-self: center;
+}
+
+.jpLogo:hover {
+    filter: alpha(opacity=80);
+    opacity: .80;
+}
+
+
 .profileImg {
     width: 55px;
     justify-self: center;
@@ -236,10 +259,11 @@ form {
 
 
 .githubLogo {
-    width: 10%;
+    min-width: 75px;
+    justify-self: center;
     padding: 1rem;
     max-width: 70px;
-    ;
+    margin-left: 1rem;
 }
 
 .githubLogo:hover {

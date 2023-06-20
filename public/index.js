@@ -145,7 +145,7 @@ function generateSampleCards() {
     
     let card5Name = "Bakery Sampling";
     deleteEvent(card5Name);
-    let card5Description = "BYU Bakery is hosting a free sampling event to present new creations. Students can taste and rate their new foods. The top ten will be add to their menu for the next year.";
+    let card5Description = "BYU Bakery is hosting a free sampling event to present new creations. Students can taste/rate their new foods.";
     let card5Time = moment().add(100, 'minute');
     card5Time = moment(card5Time).format('HH:mm');
     let card5Location = "WSC";
