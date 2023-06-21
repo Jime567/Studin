@@ -1,5 +1,5 @@
 import moment from "moment";
-import { useNavigate } from 'react-router-dom';
+
 export async function makeLogin() {
     const nav = document.querySelector(".header");
     nav.style.display = "none";
@@ -14,14 +14,13 @@ export async function makeLogin() {
         }
         else {
             idInput.value = "";
-            passwordInput = "";
+            passwordInput.value = "";
             let user = {
                 dinID: id,
                 password: password
             }
             console.log(user);
             createAccount(user);
-            //window.location.replace("/now.html");
         }
     }
     
@@ -36,7 +35,7 @@ export async function makeLogin() {
         }
         else {
             idInput.value = "";
-            passwordInput = "";
+            passwordInput.value = "";
             let user = {
                 dinID: id,
                 password: password

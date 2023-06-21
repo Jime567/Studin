@@ -33,8 +33,10 @@ async function getUser() {
       method: 'GET'
   });
   let jaysun = await response.json();
+  console.log(jaysun);
   return jaysun.dinID;
 }
+
 //set the user 
 const userName = await getUser();
 const userNameText = document.getElementById("userNameText");
@@ -44,8 +46,6 @@ userNameText.innerText = userName;
 const signOutButton = document.getElementById("signOutButton");
 signOutButton.addEventListener("click", function () {
     localStorage.removeItem("user");
-    const nav = document.querySelector(".navContainer");
-    nav.style.display = "none";
     window.location.replace("/");
 });
 

@@ -28,14 +28,7 @@ app.use(function (err, req, res, next) {
   res.status(500).send({ type: err.name, message: err.message });
 });
 
-//route all to react
-app.get('/*', function(req, res) {
-  res.sendFile(path.join(__dirname, 'public/index.html'), function(err) {
-      if (err) {
-          res.status(500).send(err)
-      }
-  })
-})
+
 
 //create user unless they already exist in DB
 app.post('/auth/create', async (req, res) => {
@@ -290,6 +283,15 @@ apiRouter.get('/place/:place', (req, res) => {
         }
     res.send(coords);
 });
+
+//route all to react
+app.get('/*', function(req, res) {
+  res.sendFile(path.join(__dirname, 'public/index.html'), function(err) {
+      if (err) {
+          res.status(500).send(err)
+      }
+  })
+})
 
 const httpService = app.listen(port, () => {
     console.log(`Listening on port ${port}`);
