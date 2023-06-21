@@ -26,9 +26,10 @@ export default function App() {
         </div>
         <Routes>
                 <Route path="/" element={<Login />} exact />
-                <Route path="/current" element={<Now />} exact/>
+                <Route path="/current" element={<Now />} />
                 <Route path="/map" element={<Maps />} />
                 <Route path="/futures" element={<Future />} />
+                <Route path='*' element={<NotFound />} />
         </Routes>
 
 

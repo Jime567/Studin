@@ -4,6 +4,7 @@ const bcrypt = require('bcrypt');
 const DB = require('./database.js');
 const cookieParser = require('cookie-parser');
 const { peerProxy } = require('./peerProxy.js');
+const path = require('path');
 
 
 //Service Port
@@ -27,6 +28,14 @@ app.use(function (err, req, res, next) {
   res.status(500).send({ type: err.name, message: err.message });
 });
 
+//route all to react
+app.get('/*', function(req, res) {
+  res.sendFile(path.join(__dirname, 'public/index.html'), function(err) {
+      if (err) {
+          res.status(500).send(err)
+      }
+  })
+})
 
 //create user unless they already exist in DB
 app.post('/auth/create', async (req, res) => {
