@@ -69,3 +69,12 @@ Users can create accounts, sign in and out, and change their passwords
 - **Data sent over WebSocket connection** - sends events
 - **WebSocket data displayed** - displays events in realtime as they are generated
 
+## React deliverable
+
+Used Vite, converted everything to React
+
+- **Bundled and transpiled** - done!
+- **Components** - All pages are components
+- **Router** - Use navigation bar to change components
+- **Hooks** - Hooks to keep track of login statuses
+
