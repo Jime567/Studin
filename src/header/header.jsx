@@ -10,7 +10,7 @@ export function Header() {
         <>
         <div className="header">
             <span>
-                    <a href="https://startup.jamesphelps.click"> <img id="logoIMG" className="logoIMG" alt="STUDIN LOGO" src="/images/studinPNGWhite.png" width="200" /></a>   
+                    <a href="https://studin.jamesephelps.com"> <img id="logoIMG" className="logoIMG" alt="STUDIN LOGO" src="/images/studinPNGWhite.png" width="200" /></a>   
             </span>
                 <span>
                     <div id="dropDown" className="dropDown" >

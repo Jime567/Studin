@@ -11,7 +11,7 @@ export function Login() {
     return (
         <>
            <span className="head">
-                <a href="https://startup.jamesphelps.click"><img className="logoIMG" alt="STUDIN LOGO" 
+                <a href="https://studin.jamesephelps.com"><img className="logoIMG" alt="STUDIN LOGO" 
                 src="/images/studinPNGWhite.png" width='200' /></a>            
                 </span> 
  
