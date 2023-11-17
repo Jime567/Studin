@@ -1,5 +1,5 @@
 # StuDin #
-[Live Site](startup.jamesphelps.click)
+[Live Site](https://studin.jamesephelps.com)
 
 The current BYU app has a dining feature meant to help students conveniently get food. It features a variety of on-campus restaurants with many different food options. Students can simply order online and pickup their food as soon as they arrive. If it sounds too good to be true, it's because it is. The cost of eating at one of these establishments is astronomically high, especially for a poor college student trying to make money on the side to live while going to school.
 
